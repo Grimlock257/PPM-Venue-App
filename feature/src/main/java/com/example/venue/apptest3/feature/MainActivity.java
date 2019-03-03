@@ -17,6 +17,8 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.*;
 import android.widget.Toast;
 
+import java.util.Set;
+
 public class MainActivity extends AppCompatActivity {
     //int x = 0;
      Switch title_Toggle;
@@ -26,12 +28,20 @@ public class MainActivity extends AppCompatActivity {
     Button Load2ndAct;
     String /*ExtractEditText*/ InputQuery;
     Intent GetLOD;
+    Intent SetBar;
     String LOADERPath = "com.example.venue.apptest3.feature.Main2Activity";
+    String L2 = "com.example.venue.apptest3.feature.OptionsAct";
+    public boolean SetActivityBar;
+    Button Options;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+//        if(SetActivityBar == null)
+//        {
+//
+//        }
         addListenerOnButtonClick();
         //GetLOD = new Intent(MainActivity.this, Main2Activity.class);
         //GetLOD.putExtra("Key", 1);
@@ -80,6 +90,21 @@ public class MainActivity extends AppCompatActivity {
 
         //buttonSubmit.setOnClickListener(new View.OnClickListener() {
         Defs = (ToggleButton) findViewById(R.id.Title_Toggle2);
+        Options = (Button) findViewById(R.id.Options);
+        Options.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view)
+            {
+                if (Options.isEnabled())
+                {
+
+                    SetBar = new Intent(view.getContext(), OptionsAct.class);
+                    SetBar.putExtra(L2, SetActivityBar);
+                    view.getContext().startActivity(SetBar);
+                }
+
+            }
+        });
         Load2ndAct = (Button) findViewById(R.id.textView);
         Load2ndAct.setOnClickListener(new View.OnClickListener()
         {
@@ -119,6 +144,7 @@ public class MainActivity extends AppCompatActivity {
                     if(!title_Toggle.isChecked())
                     {
                         getSupportActionBar().hide();
+                        SetActivityBar = false;
 //                    getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
 //                            WindowManager.LayoutParams.FLAG_FULLSCREEN); //enable full screen
 //                    setContentView(R.layout.activity_main);
@@ -144,6 +170,7 @@ public class MainActivity extends AppCompatActivity {
                 else
                     {
                         getSupportActionBar().show();
+                        SetActivityBar = true;
 //                    getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
 //                            WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE); //enable full screen
 //                    setContentView(R.layout.activity_main);

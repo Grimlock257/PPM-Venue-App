@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.inputmethodservice.ExtractEditText;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -25,13 +26,13 @@ public class MainActivity extends AppCompatActivity {
     //Switch SwitchSubmit;
     Button Defs;
     EditText BarSearch;
-    Button Load2ndAct;
+    Button DisplayVenues;
     String /*ExtractEditText*/ InputQuery;
-    Intent GetLOD;
+    Intent StartSearch;
     Intent SetBar;
     String LOADERPath = "com.example.venue.apptest3.feature.Main2Activity";
     String L2 = "com.example.venue.apptest3.feature.OptionsAct";
-    public boolean SetActivityBar;
+    public boolean SetActivityBar = true;
     Button Options;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,20 +65,29 @@ public class MainActivity extends AppCompatActivity {
         //InputQuery = (() R.id.BarSearch)
         //InputQuery.extractText(Context.INPUT_METHOD_SERVICE.toString());
         InputQuery = Context.INPUT_METHOD_SERVICE; //Only Retuns InputSrevice But user Inputted String
+        //BarSearch.setText(InputQuery);
        // InputQuery = keys.toString().toCharArray().;
         Toast.makeText(getApplicationContext(), "String: " + InputQuery, Toast.LENGTH_LONG).show();
        //NULL:-> MainActivity.this.startActivity(GetLOD);
         //keys.showSoftInput(BarSearch.getWindowToken(), 1)
 
     }
-    @Deprecated //This Causes a NULLPointer
-    public void getNewActivity(/*view*/)
+    public abstract class ApplyOptionSettings implements Parcelable /*Cant's seem to share variables between activities with a public class in the
+                                         traditional way as this class is not visible from other activities?*/
     {
-        InputQuery = BarSearch.getText().toString();
-        GetLOD = new Intent(MainActivity.this, Main2Activity.class);
-        GetLOD.putExtra(LOADERPath, InputQuery);
-        this.startActivity(GetLOD);
+        private Boolean test = true;
+        public Boolean SetBar() {return test;}
+       //private final ApplyOptionSettings cache = new ApplyOptionSettings();
+        //public  ApplyOptionSettings getInstance() {return cache;}
     }
+    //@Deprecated //This Causes a NULLPointer
+//    public void getNewActivity(/*view*/)
+//    {
+//        InputQuery = BarSearch.getText().toString();
+//        StartSearch = new Intent(MainActivity.this, Main2Activity.class);
+//        StartSearch.putExtra(LOADERPath, InputQuery);
+//        this.startActivity(StartSearch);
+//    }
 
 
 
@@ -91,6 +101,10 @@ public class MainActivity extends AppCompatActivity {
         //buttonSubmit.setOnClickListener(new View.OnClickListener() {
         Defs = (ToggleButton) findViewById(R.id.Title_Toggle2);
         Options = (Button) findViewById(R.id.Options);
+//        if(SetActivityBar == false)
+//        {
+//            SetBar = false;
+//        }
         Options.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view)
@@ -105,21 +119,22 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-        Load2ndAct = (Button) findViewById(R.id.textView);
-        Load2ndAct.setOnClickListener(new View.OnClickListener()
+        DisplayVenues = (Button) findViewById(R.id.textView);
+        DisplayVenues.setOnClickListener(new View.OnClickListener()
         {
             public void onClick(View view)
             {
-                if(Load2ndAct.isEnabled())
+                if(DisplayVenues.isEnabled())
                 {
                     //setContentView(R.layout.activity_main2);
                     //MainActivity.this.setContentView(R.layout.activity_main2);
                     //startActivity(R.layout.activity_main2, Load2ndAct.isEnabled(View));
                     //getNewActivvity(View);
-                    InputQuery = BarSearch.getText().toString();
-                    GetLOD = new Intent(view.getContext(), Main2Activity.class);
-                    GetLOD.putExtra(LOADERPath, InputQuery);
-                    view.getContext().startActivity(GetLOD);
+                    InputQuery = MainActivity.this.BarSearch.getText().toString();  //Unable to Pass/Convey userInputString to Activity2
+                    //Toast.makeText(getApplicationContext(), InputQuery, Toast.LENGTH_SHORT).show();
+                    StartSearch = new Intent(view.getContext(), Main2Activity.class);
+                    StartSearch.putExtra(LOADERPath, InputQuery);
+                    view.getContext().startActivity(StartSearch);
 
                 }
             }

@@ -12,15 +12,14 @@ public class VenueImplementable
     private String Tags;
     private int ImgID;
 
-    public VenueImplementable() {
-    }
+
 
     public VenueImplementable(String venueId, String setTime, String tags,int imgID) { //This Acts alot like an Interface/Constructor but that may be due to List functionality aloow it to act like/as a templete
         VenueId = venueId;
         //VenueTitle =
         SetTime = setTime;
         Tags = tags;
-        ImgID = imgID; //Must be set to int as t cannot be referenced from teh ImageView from teh ViewAdaptor as setImageResoruce must accept int only
+        ImgID = imgID; //Must be set to int as it cannot be referenced from the ImageView from the ViewAdaptor as setImageResource must accept int only
     }
 
     public String getVenueId() {
@@ -44,7 +43,7 @@ public class VenueImplementable
 
     public void setVenueId(String venueId) {
         VenueId = venueId;
-    } //Might not need all of tehse setters and getters/Consurtctors unelss the online grabber can be setup.configured to set teh ciontents fo each eleklenmt dynamically.
+    } //Might not need all of these setters and getters/Constructors unless the online grabber can be setup.configured to set the contents fo each element dynamically.
 
     public void setImgID(int imgID) { //Must be Int
         ImgID = imgID;

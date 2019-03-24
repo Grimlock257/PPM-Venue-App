@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Venue3</string>
+    <string name="title_activity_main2">Main2Activity</string>
+
+    <string name="Venue_View">View Venues</string>
+    <string name="Hide_Title">Hide Title</string>
+    <string name="Show_Title">Show Title</string>
+    <string name="SearchQuery"></string>
+
+
+</resources>

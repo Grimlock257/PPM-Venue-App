@@ -1,1 +1,2 @@
-include ':feature', ':app', ':instantapp'
+include ':app'
+rootProject.name='Venue3'

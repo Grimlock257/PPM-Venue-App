@@ -49,6 +49,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <Switch
+        android:id="@+id/Debug"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="76dp"
+        android:layout_marginTop="104dp"
+
+        android:checked="false"
+        android:gravity="center"
+        android:textOff="@string/Show_Debug_Options"
+        android:textOn="@string/Hide_Debug_Options"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <ToggleButton
         android:id="@+id/Title_Toggle2"
         android:layout_width="wrap_content"

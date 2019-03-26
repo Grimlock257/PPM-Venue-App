@@ -10,17 +10,27 @@ public class VenueImplementable
     //private String VenueTitle = Find;
     private String SetTime;
     private String Tags;
-    private int ImgID;
+    private /*String*/ int ImgID;
+    private String date;
 
 
 
-    public VenueImplementable(String venueId, String setTime, String tags,int imgID) { //This Acts alot like an Interface/Constructor but that may be due to List functionality aloow it to act like/as a templete
+    public VenueImplementable(String venueId, String setTime, String tags, /*String*/ int imgID) { //This Acts alot like an Interface/Constructor but that may be due to List functionality aloow it to act like/as a templete
         VenueId = venueId;
         //VenueTitle =
         SetTime = setTime;
         Tags = tags;
         ImgID = imgID; //Must be set to int as it cannot be referenced from the ImageView from the ViewAdaptor as setImageResource must accept int only
     }
+
+//    public VenueImplementableExt(String venueId, String setTime, String tags, /*String*/ int imgID, String time) { //This Acts alot like an Interface/Constructor but that may be due to List functionality aloow it to act like/as a templete
+//        VenueId = venueId;
+//        //VenueTitle =
+//        SetTime = setTime;
+//        Tags = tags;
+//        ImgID = imgID; //Must be set to int as it cannot be referenced from the ImageView from the ViewAdaptor as setImageResource must accept int only
+//        date = time;
+//    }
 
     public String getVenueId() {
         return VenueId;
@@ -36,8 +46,19 @@ public class VenueImplementable
         return Tags;
     }
 
-    public int getImgID() { //Must be Int
+    public /*String*/int getImgID() { //Must be Int
         return ImgID;
+    }
+
+//    public String getDate() {
+//        return date;
+//    }
+
+    public String getImgIDtoStringHelper()
+    {
+        String a = Integer.toString(ImgID);
+
+        return a;
     }
 
 
@@ -45,7 +66,7 @@ public class VenueImplementable
         VenueId = venueId;
     } //Might not need all of these setters and getters/Constructors unless the online grabber can be setup.configured to set the contents fo each element dynamically.
 
-    public void setImgID(int imgID) { //Must be Int
+    public void setImgID(/*String*/ int imgID) { //Must be Int
         ImgID = imgID;
     }
 

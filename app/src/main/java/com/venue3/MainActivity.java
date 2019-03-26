@@ -33,6 +33,8 @@ public class MainActivity extends AppCompatActivity
     Button LoadFragments;
     Intent GetLOD;
 
+    Switch debug;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -67,6 +69,14 @@ public class MainActivity extends AppCompatActivity
                 if(DisplayVenues.isEnabled())
                 {
                     GetLOD = new Intent(view.getContext(), Main2Activity.class);
+
+//                    int dbg = Debugger();
+//
+//                    if(dbg == 1)
+//                    {
+//                        GetLOD.putExtra("dbg", dbg);
+//                    }
+
                     view.getContext().startActivity(GetLOD);
                 }
 
@@ -79,7 +89,7 @@ public class MainActivity extends AppCompatActivity
             {
                 if (Defs.isEnabled())
                 {
-                    if(!title_Toggle.isChecked())
+                    if(title_Toggle.isChecked())
                     {
                         getSupportActionBar().hide();
                         SetActivityBar = false;
@@ -102,6 +112,31 @@ public class MainActivity extends AppCompatActivity
 
         });
 
+
+
+    }
+
+//    public int Debugger(final int x)
+//    {
+//        //final Boolean a = false;
+//
+//        debug = findViewById(R.id.Debug);
+//        debug.setOnClickListener(new View.OnClickListener()
+//        {
+//            public void onClick(View view)
+//            {
+//                if(debug.isEnabled())
+//                {
+//                    x = 1;
+//                }
+//            }
+//        });
+//        return x;
+//    }
+
+    private void imageLoader() //Perhaps put the URL parsers + JSON here
+    {
+        //Should teh URl Parsers be here ior the ItemAdaptor?
     }
 
 

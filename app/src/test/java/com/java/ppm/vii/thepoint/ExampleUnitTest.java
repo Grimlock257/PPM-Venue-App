@@ -1,4 +1,4 @@
-package com.venue3;
+package com.java.ppm.vii.thepoint;
 
 import org.junit.Test;
 

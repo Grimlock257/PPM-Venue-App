@@ -1,9 +1,8 @@
-package com.venue3;
+package com.java.ppm.vii.thepoint;
 
 import android.content.Context;
-
-import androidx.test.platform.app.InstrumentationRegistry;
-import androidx.test.ext.junit.runners.AndroidJUnit4;
+import android.support.test.InstrumentationRegistry;
+import android.support.test.runner.AndroidJUnit4;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,8 +19,8 @@ public class ExampleInstrumentedTest {
     @Test
     public void useAppContext() {
         // Context of the app under test.
-        Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
+        Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.venue3", appContext.getPackageName());
+        assertEquals("com.java.ppm.vii.thepoint", appContext.getPackageName());
     }
 }

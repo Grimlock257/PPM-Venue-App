@@ -1,18 +1,32 @@
 <resources>
-    <string name="app_name">Venue3</string>
-    <string name="title_activity_main2">Main2Activity</string>
+    <string name="app_name">NTSU Clifton : The Point</string>
 
-    <string name="Venue_View">View Venues</string>
-    <string name="Hide_Title">Hide Title</string>
-    <string name="Show_Title">Show Title</string>
-    <string name="Show_Debug_Options">Show
-        Debug Options</string>
-    <string name="Hide_Debug_Options">Hide
-        Debug Options</string>
-    <string name="SearchQuery"></string>
+    <!-- Admin: Event Overview -->
+    <string name="act_event_overview_header">Event Overview</string>
 
+    <string name="btn_new_event">Add New Event</string>
 
+    <string name="dummy">Dummy</string>
+    <string name="btn_card_edit_desc">Edit</string>
+    <string name="btn_card_delete_desc">Delete</string>
 
+    <!-- Admin: Event Forms -->
+    <string name="form_event_title">Title</string>
+    <string name="form_event_title_hint">Enter Title</string>
+    <string name="form_event_promoter">Promoter (optional)</string>
+    <string name="form_event_promoter_hint">Enter Promoter (optional)</string>
+    <string name="form_event_date">Date</string>
+    <string name="form_event_date_hint">Enter Date</string>
+    <string name="form_event_desc">Description</string>
+    <string name="form_event_desc_hint">Enter Description</string>
+    <string name="form_event_fb_event">Facebook Event Page (optional)</string>
+    <string name="form_event_fb_event_hint">Enter Facebook Event Page (optional)</string>
+    <string name="form_event_price">Price</string>
+    <string name="form_event_price_hint">Enter Price</string>
+    <string name="form_event_ticket_url">Ticket URL (optional)</string>
+    <string name="form_event_ticket_url_hint">Enter Ticket URL (optional)</string>
 
-
+    <string name="form_event_cancel">Cancel</string>
+    <string name="form_event_create">Create Event</string>
+    <string name="form_event_update">Update Event</string>
 </resources>

@@ -36,6 +36,15 @@
         android:background="@color/colorSuccess"
         android:text="@string/btn_new_event" />
 
+    <Button
+        android:id="@+id/buttonShowCardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="48dp"
+        android:background="@color/colorAccent"
+        android:text="Show CardView" />
+
     <ProgressBar
         android:id="@+id/progressBar"
         android:layout_width="wrap_content"

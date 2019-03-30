@@ -1,5 +1,6 @@
 package com.java.ppm.vii.thepoint.admin;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -14,6 +15,7 @@ import com.java.ppm.vii.thepoint.R;
 import com.java.ppm.vii.thepoint.database.API;
 import com.java.ppm.vii.thepoint.database.HTTPMethod;
 import com.java.ppm.vii.thepoint.database.RequestHandler;
+import com.java.ppm.vii.thepoint.user.ViewEventActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -72,6 +74,8 @@ public class CreateEventActivity extends AppCompatActivity {
                 // TODO: Keyboard remains open if 'CREATE EVENT' clicked with keyboard open
             }
         });
+
+
     }
 
     /**

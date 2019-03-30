@@ -19,6 +19,8 @@ import com.java.ppm.vii.thepoint.database.HTTPMethod;
 import com.java.ppm.vii.thepoint.database.RequestHandler;
 import com.java.ppm.vii.thepoint.database.entity.Event;
 
+import com.java.ppm.vii.thepoint.user.ViewEventActivity;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -68,6 +70,14 @@ public class EventOverviewActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent myIntent = new Intent(getApplicationContext(), CreateEventActivity.class);
                 startActivity(myIntent);
+            }
+        });
+        Button ShowCardview = findViewById(R.id.buttonShowCardView); //Connor-vcmp: Please remove this Button if it causes issues as this is a hacked in method to load the CardView
+        ShowCardview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent Load = new Intent(/*v.getContext()*/getApplicationContext(), ViewEventActivity.class);
+                /*v.getContext().*/startActivity(Load);
             }
         });
     }

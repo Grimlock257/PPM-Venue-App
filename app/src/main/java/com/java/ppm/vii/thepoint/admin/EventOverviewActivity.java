@@ -43,7 +43,7 @@ public class EventOverviewActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_event_overview);
+        setContentView(R.layout.activity_admin_event_overview);
 
         initLayoutViews();
 

@@ -11,3 +11,5 @@
 /build
 /captures
 .externalNativeBuild
+
+app/src/main/java/com/java/ppm/vii/thepoint/database/API.java

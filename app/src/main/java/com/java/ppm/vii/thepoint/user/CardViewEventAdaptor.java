@@ -58,88 +58,19 @@ public class CardViewEventAdaptor extends RecyclerView.Adapter<CardViewEventAdap
     @Override
     public void onBindViewHolder(final ViewHolder Holder, final int Pos)
     {
-        //Item item = mData.get(Pos);
-        //Holder currentEvent = mData.get(Pos);
+
 
         Holder.VenueViewText.setText(mData.get(Pos).getVenueId());
-//        URL = mData.get(Pos).getImgUri();
-        //Holder.UriGrabber.hashCode() // May work to add Int identifier
-        //Holder.img_Venue.getDrawable(Glide.with(mContext).load(Uri.parse()).into(mData.iterator().));
-        //Holder.img_Venue.setImageURI(mData.get(Pos).getImgUri()); //The New Uri DatTup Mya actually work for this
+
         if (mData.get(Pos).getIsGIF() == 1)
         {
             Glide.with(mContext).asGif().load(mData.get(Pos).getImgUri())/*.placeholder()*/.into(Holder.img_Venue);
-            /*Glide.with(mContext).asGif().load(mData.get(Pos).getImgUri())*//*.override(256,256)*//*.into(new Target<GifDrawable>() {
-                @Override
-                public void onLoadStarted(@Nullable Drawable placeholder) {
 
-                }
-
-                @Override
-                public void onLoadFailed(@Nullable Drawable errorDrawable) {
-
-                }
-
-                @Override
-                public void onResourceReady(@NonNull GifDrawable resource, @Nullable Transition<? super GifDrawable> transition) {
-                    Glide.with(mContext).asGif().load(mData.get(Pos).getImgUri()).into(Holder.img_Venue);
-                }
-
-                @Override
-                public void onLoadCleared(@Nullable Drawable placeholder) {
-
-                }
-
-                @Override
-                public void getSize(@NonNull SizeReadyCallback cb) {
-
-                }
-
-                @Override
-                public void removeCallback(@NonNull SizeReadyCallback cb) {
-
-                }
-
-                @Override
-                public void setRequest(@Nullable Request request) {
-
-                }
-
-                @Nullable
-                @Override
-                public Request getRequest() {
-                    return null;
-                }
-
-                @Override
-                public void onStart() {
-
-                }
-
-                @Override
-                public void onStop() {
-
-                }
-
-                @Override
-                public void onDestroy() {
-
-                }
-            });*/
         }
         else
         {
             Glide.with(mContext).asDrawable().load(mData.get(Pos).getImgUri()).into(Holder.img_Venue);
         }
-        //eventViewHolder.eventDate.setText(currentEvent.getDate())
-//        Holder.VenueViewText.setText(mData.get(Pos).getId());  //Grabs Venue ID Directly
-//        //Holder.mView.get
-//        //Holder.
-//        Holder.VenueViewText.setText(mData.get(Pos).getDate()); //Grabs Venue img directly, is set to int so may cause issues as the rest of the mData List is Strings not ints
-//        Holder.img_Venue.setImageResource(mData.get(Pos).getImgID()); //Grabs Venue img directly, is set to int so may cause issues as the rest of the mData List is Strings not ints
-        //Glide.with(mContext).load("http://goo.gl/gEgYUd").into(geti)
-        //Glide.with(this.mContext).load(mData.get(Pos)).diskCacheStrategy(DiskCacheStrategy.ALL).into(Holder.img_Venue()); //May be wrong method +Context to prepare image grabber
-        //LoadIm
 
         Holder.VenueCard.setOnClickListener(new View.OnClickListener()
         {
@@ -150,10 +81,6 @@ public class CardViewEventAdaptor extends RecyclerView.Adapter<CardViewEventAdap
                 Viwer = new Intent(mContext, AptResult.class); //Sets Content to this Activity and the Specific elements of the CardviewAdaptor interacted with?
                 String venueid = mData.get(Pos).getVenueId();
                 Uri ImgUri = mData.get(Pos).getImgUri();
-                //String imgid = mData.get(Pos).getImgIDtoStringHelper(); //Hacky Method to get imgID to String may be Problematic?
-
-                //int imgID = mData.get(Pos).getImgID();
-                //GlideBuilder i;
 
                 Viwer.putExtra("venueid", venueid);/*mData.get(Pos).getVenueId())*/;
                 //Viwer.putExtra("imgID", );
@@ -171,30 +98,18 @@ public class CardViewEventAdaptor extends RecyclerView.Adapter<CardViewEventAdap
         public final View mView;
         TextView VenueViewText;
         TextView eventdate;
-        //String imgGrabber;
         ImageView img_Venue;
         CardView VenueCard;
-        //GlideUrl UriGrabber;
         public ViewHolder(View App2view)
         {
             super(App2view);
             mView = App2view;
             VenueViewText = (TextView) App2view.findViewById(R.id.venue_title);
-            //imgGrabber =
-            //eventDate = App2view.findViewById(R.id.)
-            img_Venue = /*(ImageView)*/ App2view.findViewById(R.id.venue_cover_Loader); //venue_cover_id
-            //Glide.with(mContext).load(Uri.parse(URL)).into(img_Venue); //Wrong Context? //Also add Iteratble ArrayList to interate through images later?
-            //Glide.with(mContext).load(geti).into(img_Venue); //may be icnorretc location to imploemnt Gldie into the Arraylist img_Venue
-            //Glide.with(mContext).load()).into(img_Venue); //may be icnorretc location to imploemnt Gldie into the Arraylist img_Venue
 
-            //mContentView = (TextView) App2view.findViewById(R.id.content);
+            img_Venue = /*(ImageView)*/ App2view.findViewById(R.id.venue_cover_Loader); //venue_cover_id
+
             VenueCard = (CardView) App2view.findViewById(R.id.VenueCardView);
         }
-
-//        public ImageView getImg_Venue() //Image garrper impelmented via Glide  //Where is this Method Decailred?
-//        {
-//            return this.img_Venue;
-//        }
 
 
     }

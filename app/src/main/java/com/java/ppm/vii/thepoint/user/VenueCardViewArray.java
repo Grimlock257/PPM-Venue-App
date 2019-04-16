@@ -31,16 +31,9 @@ public class VenueCardViewArray
         IsGIF = isGIF;
 
         //Must be set to int as it cannot be referenced from the ImageView from the ViewAdaptor as setImageResource must accept int only
+        //Correction: SetImage resource can also Accept URI, not just Int which makes it very useful for accepting and Handling URLs for Glide Functionality/Interfacing
     }
 
-//    public VenueImplementableExt(String venueId, String setTime, String tags, /*String*/ int imgID, String time) { //This Acts alot like an Interface/Constructor but that may be due to List functionality aloow it to act like/as a templete
-//        VenueId = venueId;
-//        //VenueTitle =
-//        SetTime = setTime;
-//        Tags = tags;
-//        ImgID = imgID; //Must be set to int as it cannot be referenced from the ImageView from the ViewAdaptor as setImageResource must accept int only
-//        date = time;
-//    }
 
     public String getVenueId() {
         return VenueId;
@@ -56,23 +49,7 @@ public class VenueCardViewArray
         return Tags;
     }
 
-   /* public *//*String*//*int getImgID() { //Must be Int
-        return ImgID;
-    }*/
 
-    /*public ArrayList getIList()
-    {
-        return IList;
-    }*/
-
-//    public VenueCardViewArray(int ImgID, ArrayList IList)
-//    {
-//
-//        this.ImgID = ImgID;
-//        this.IList = IList;
-//    }
-
-    //VImages = findViewById(R.id.venue_cover_Loader);
 
     public Uri getImgUri() {
         return ImgUri;
@@ -83,25 +60,12 @@ public class VenueCardViewArray
         return IsGIF;
     }
 
-    //    public String getDate() {
-//        return date;
-//    }
-
-    /*public String getImgIDtoStringHelper()
-    {
-        String a = Integer.toString(ImgID);
-
-        return a;
-    }*/
 
 
     public void setVenueId(String venueId) {
         VenueId = venueId;
-    } //Might not need all of these setters and getters/Constructors unless the online grabber can be setup.configured to set the contents fo each element dynamically.
-
-    /*public void setImgID(*//*String*//* int imgID) { //Must be Int
-        ImgID = imgID;
-    }*/
+    } //Below comment is somewhat incorrect: Actually need these Setters and Getters to allow the ArrayList to be public/ accessible to the other classes
+    // Might not need all of these setters and getters/Constructors unless the online grabber can be setup.configured to set the contents fo each element dynamically.
 
     public void setImgUri(Uri imgUri) {
         ImgUri = imgUri;

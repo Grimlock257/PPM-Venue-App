@@ -23,15 +23,13 @@ public class AptResult extends AppCompatActivity
 
     Intent viwerGetter;
 
-    String a;
-
     ImageView VenImgDisplay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_display_result);
-        //todo: Add Fragment resource linking to here to display Fragment Results pertaining to that specific element derived from the Fragment Array
+        //todo: Done: Add Fragment resource linking to here to display Fragment Results pertaining to that specific element derived from the Fragment Array
         try
         {
             getVenueDetails();
@@ -40,18 +38,13 @@ public class AptResult extends AppCompatActivity
         {
             int length = Toast.LENGTH_LONG*10;
             Toast.makeText(this, "ImageLoading Error: "+ e/*toString(e)*/, length).show();
-            //Notification.CATEGORY_ERROR
-//            NotificationCompat.Builder builder = new NotificationCompat.Builder(this, Notification.CATEGORY_ERROR)
-//                    .setSmallIcon(R.drawable.ic_launcher_foreground)
-//                    .setContentTitle("Oops!")
-//                    .setContentText("ImageLoading Error: "+ e)
-//                    .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+
         }
     }
 
     void getVenueDetails()
     {
-        //VenueIDResolver
+
 
         DisplayVenueDetails = findViewById(R.id.VenueTitle);
 
@@ -59,43 +52,29 @@ public class AptResult extends AppCompatActivity
 
         viwerGetter = getIntent();
 
-        //Bundle extra = getIntent().getStringExtra("venueid");
+
 
 
 
         try
         {
-            //a = viwerGetter.getExtras().getString("venueid");
+
             DisplayVenueDetails.setText(getIntent().getStringExtra("venueid"));
-            //VenImgDisplay.setImageResource(getIntent().getIntExtra("imgID", R.id.DispView));
-            //String ImgURI = getIntent().getStringExtra("ImgLoc");
-            //Uri ImgURI = getIntent().toUri("ImgLoc");
+
             Uri ImgURI = getIntent().getParcelableExtra("ImgLoc");
 
-            Glide.with(this).load(ImgURI/*Uri.parse(ImgURI)*/).into(VenImgDisplay); //may be icnorretc location to imploemnt Gldie into the Arraylist img_Venue
+            Glide.with(this).load(ImgURI/*Uri.parse(ImgURI)*/).into(VenImgDisplay); //Somehow this Actually Works //may be incorrect location to imploemnt Gldie into the Arraylist img_Venue
 
-                    //VenImgDisplay.draw(getIntent().getIntExtra("imgID", R.id.DispView)););
+
 
         }
         catch (NullPointerException e)
         {
-//            String t = toString(e);
+
             String NPE = "Fix NPE!";
             Toast.makeText(this, "Fix NPE!"/*toString(e)*/, Toast.LENGTH_LONG).show();
             DisplayVenueDetails.setText(NPE);
         }
-
-
-
-
-//        if(a == null)
-//        {
-//            Toast.makeText(this, "Fix NPE!", Toast.LENGTH_LONG).show();
-//        }
-//        else
-//        {
-//            DisplayVenueDetails.setText(a);
-//        }
 
 
     }

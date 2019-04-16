@@ -21,22 +21,27 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Random;
 
-/**
- * Activity for viewing a particular event
+
+/**ToDo: Add Database Synchronisation to allow the Gridlayout to be updated based on Current database Contents
+  * Also need to add Gridlayout GUI correction to fix the Wonky Margins as well as to programmically adjust based on Phone resolution and Aspect Ratio
+  * Add Search and tagging system if time permitting
+  * Animation Handler for loading. Rotating Tiles?
+  * Swipe to Left to add tiles to the User accounts preferences/Saved/Followed Venues?
+  * Worth bothering to fix the Gif Bug with laggy Encoding?
+ *
  */
+
+
+
 public class ViewEventActivity extends AppCompatActivity {
 
-    //AndroidManifestApplication_largeHeap = true;
+    //AndroidManifestApplication_largeHeap = true; //May need this if app exceeds default 64Mb Heap
 
     ArrayList<Event> llist;
 
     ArrayList<VenueCardViewArray> List;
 
-    //ArrayList<ImageArray> IList;
-
     RecyclerView GridView;
-
-    ImageView VImages;
 
     LinearLayoutManager mgr;
     JSONArray events;
@@ -50,7 +55,7 @@ public class ViewEventActivity extends AppCompatActivity {
 
         llist = new ArrayList<>();
 
-        try
+        try //Database Integration Needs to be Fixed
         {
 
             for (int i = 0; i < events.length(); i++) {
@@ -74,12 +79,6 @@ public class ViewEventActivity extends AppCompatActivity {
         catch (NullPointerException a)
         {
             Toast.makeText(this, "NPE!, Failed to get JSONArraySize!", Toast.LENGTH_LONG).show();
-
-//             IList = new ArrayList<>();
-//
-//            //String i = Glide.with(this).load("http://goo.gl/gEgYUd").into(VImages);
-//
-//            IList.add(1, Glide.with(this).load("http://goo.gl/gEgYUd").into(VImages));
 
 
 
@@ -105,9 +104,7 @@ public class ViewEventActivity extends AppCompatActivity {
 
             GridView = findViewById(R.id.venue_recycler_view);
 
-//        imgLoader = new Adapter(ListVenue., this);
 
-            //imgLoader = new Adapter(ListVenue.) //Will this apdptor be heeded/Usefull for the imgLoderHandling for Glide?
 
             CardViewEventAdaptor VenueItemAdapter = new CardViewEventAdaptor(ViewEventActivity.this, List/*.getItems*/); //Add ListVenue to the ViewAdaptor
 

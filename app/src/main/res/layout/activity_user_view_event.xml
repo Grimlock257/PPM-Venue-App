@@ -9,12 +9,17 @@
     tools:context=".user.ViewEventActivity">
 -->
 
+<!--com.java.ppm.vii.thepoint.user.GridRecyclerView-->
     <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/venue_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="center">
-    </android.support.v7.widget.RecyclerView>
+        android:layout_gravity="center"
+        android:orientation="vertical"
+    />
+        <!--android:layoutAnimation="@anim/grid_layout_animation_from_bottom"-->
+
+
 
     <!--<TextView
         android:id="@+id/DisplayQuery"

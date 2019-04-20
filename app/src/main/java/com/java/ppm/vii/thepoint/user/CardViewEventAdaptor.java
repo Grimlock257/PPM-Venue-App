@@ -62,9 +62,11 @@ public class CardViewEventAdaptor extends RecyclerView.Adapter<CardViewEventAdap
 
         Holder.VenueViewText.setText(mData.get(Pos).getVenueId());
 
+        /*Uri load = Uri.parse("https://cdn.dribbble.com/users/108390/screenshots/2882839/spinner-loop.gif");
+        String Load = "https://cdn.dribbble.com/users/108390/screenshots/2882839/spinner-loop.gif";*/
         if (mData.get(Pos).getIsGIF() == 1)
         {
-            Glide.with(mContext).asGif().load(mData.get(Pos).getImgUri())/*.placeholder()*/.into(Holder.img_Venue);
+            Glide.with(mContext).asGif()/*.placeholder(Uri.parse("https://cdn.dribbble.com/users/108390/screenshots/2882839/spinner-loop.gif"))*/.load(mData.get(Pos).getImgUri())/*.placeholder()*/.into(Holder.img_Venue);
 
         }
         else

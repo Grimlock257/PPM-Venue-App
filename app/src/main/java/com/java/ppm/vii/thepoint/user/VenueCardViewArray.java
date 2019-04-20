@@ -20,7 +20,8 @@ public class VenueCardViewArray
     //private ArrayList IList;
 
 
-    public VenueCardViewArray(String venueId, String setTime, String tags, Uri imgUri, int isGIF/*,*/ /*String*/ /*int imgID*//*, ArrayList iList*/) { //This Acts alot like an Interface/Constructor but that may be due to List functionality aloow it to act like/as a templete
+    public VenueCardViewArray(String venueId, String setTime, String tags, Uri imgUri, int isGIF)
+    {
         VenueId = venueId;
         //VenueTitle =
         SetTime = setTime;
@@ -28,7 +29,7 @@ public class VenueCardViewArray
         //ImgID = imgID;
         //iList = IList;
         ImgUri = imgUri;
-        IsGIF = isGIF;
+        IsGIF = isGIF; //This flag is mostly redundant as it did not do much in the end as it did not fix the GIF Lag
 
         //Must be set to int as it cannot be referenced from the ImageView from the ViewAdaptor as setImageResource must accept int only
         //Correction: SetImage resource can also Accept URI, not just Int which makes it very useful for accepting and Handling URLs for Glide Functionality/Interfacing
@@ -51,7 +52,8 @@ public class VenueCardViewArray
 
 
 
-    public Uri getImgUri() {
+    public Uri getImgUri() //Image URL can be used here
+    {
         return ImgUri;
     }
 
@@ -64,8 +66,7 @@ public class VenueCardViewArray
 
     public void setVenueId(String venueId) {
         VenueId = venueId;
-    } //Below comment is somewhat incorrect: Actually need these Setters and Getters to allow the ArrayList to be public/ accessible to the other classes
-    // Might not need all of these setters and getters/Constructors unless the online grabber can be setup.configured to set the contents fo each element dynamically.
+    }
 
     public void setImgUri(Uri imgUri) {
         ImgUri = imgUri;

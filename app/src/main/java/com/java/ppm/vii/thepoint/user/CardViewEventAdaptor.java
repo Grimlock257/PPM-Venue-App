@@ -47,10 +47,10 @@ public class CardViewEventAdaptor extends RecyclerView.Adapter<CardViewEventAdap
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
     {
-        View App2view; //?May need to be changed back to appView if issue incurred //Renaming should help distinguish from other views;
+        View App2view;
         LayoutInflater mInflator = LayoutInflater.from(mContext);
         App2view = mInflator.inflate(R.layout.cardview_user_show_event, parent, false);
-        //URL = "http://goo.gl/gEgYUd"; //SHoudl Ideall be done based on the specific id-Uri of the image in question , mayb be worth egtting it on click.
+        //URL = "http://goo.gl/gEgYUd";
         return new ViewHolder(App2view);
     }
 
@@ -62,7 +62,7 @@ public class CardViewEventAdaptor extends RecyclerView.Adapter<CardViewEventAdap
 
         Holder.VenueViewText.setText(mData.get(Pos).getVenueId());
 
-        /*Uri load = Uri.parse("https://cdn.dribbble.com/users/108390/screenshots/2882839/spinner-loop.gif");
+        /*Uri load = Uri.parse("https://cdn.dribbble.com/users/108390/screenshots/2882839/spinner-loop.gif"); //tried to add a loading animation whilst the images are being loaded into the Adaptor
         String Load = "https://cdn.dribbble.com/users/108390/screenshots/2882839/spinner-loop.gif";*/
         if (mData.get(Pos).getIsGIF() == 1)
         {

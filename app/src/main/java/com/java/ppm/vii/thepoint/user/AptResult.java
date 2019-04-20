@@ -63,7 +63,7 @@ public class AptResult extends AppCompatActivity
 
             Uri ImgURI = getIntent().getParcelableExtra("ImgLoc");
 
-            Glide.with(this).load(ImgURI/*Uri.parse(ImgURI)*/).into(VenImgDisplay); //Somehow this Actually Works //may be incorrect location to imploemnt Gldie into the Arraylist img_Venue
+            Glide.with(this).load(ImgURI/*Uri.parse(ImgURI)*/).into(VenImgDisplay); //Somehow this Actually Works
 
 
 

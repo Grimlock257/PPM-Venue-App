@@ -10,7 +10,12 @@ import android.view.animation.GridLayoutAnimationController;
 
 
 
-//todo: Ignore this class as it is a Failed attempt to add an animation handler to teh Gridlayout which did not work very well and should not be used without completely breaking everything!
+/**todo: Ignore this class as it is a Failed attempt to add an animation handler to teh Gridlayout which did not work very well and should not be used without completely breaking everything!
+  * Guide used to create this for reference in case it is useful: https://proandroiddev.com/enter-animation-using-recyclerview-and-layoutanimation-part-2-grids-688829b1d29b
+ */
+
+
+
 //
 @Deprecated
 public class GridRecyclerView extends RecyclerView

@@ -1,37 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".user.ViewEventActivity">
--->
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
 
-<!--com.java.ppm.vii.thepoint.user.GridRecyclerView-->
-    <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/VenueConstraintLayout"
+    app:layout_constraintBaseline_toBaselineOf="parent">
+
+
+    <android.support.v7.widget.RecyclerView
         android:id="@+id/venue_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
         android:orientation="vertical"
-    />
-        <!--android:layoutAnimation="@anim/grid_layout_animation_from_bottom"-->
+        android:padding="12dp"
 
+        android:layout_marginTop="48dp"/>
 
+    <EditText
 
-    <!--<TextView
+        android:hint="Search Me!"
         android:id="@+id/DisplayQuery"
-        android:layout_width="wrap_content"
+
+
+        android:ems="10"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="12dp"
 
-        android:layout_marginStart="132dp"
-        android:layout_marginLeft="13dp"
-        android:layout_marginTop="137dp"
-
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />-->
+        app:layout_constraintTop_toTopOf="parent"
+
+        android:visibility="visible" />
+
+
+
+
+<!--    <android.support.design.widget.FloatingActionButton-->
+<!--        android:id="@+id/MagicButton"-->
+<!--        android:layout_width="64dp"-->
+<!--        android:layout_height="64dp"-->
+
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent" />-->
+
+
+</android.support.constraint.ConstraintLayout>
+
+
+
 
 <!--
 </LinearLayout>-->

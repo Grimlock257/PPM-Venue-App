@@ -61,7 +61,7 @@ public class VenueCardViewArray
     {
         return IsGIF;
     }
-
+        //Set JSOn Pasre/read here?
 
 
     public void setVenueId(String venueId) {

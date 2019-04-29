@@ -7,14 +7,22 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.View;
 import android.view.ViewGroup;
+import android.support.design.widget.FloatingActionButton;
 import android.view.animation.AnimationUtils;
 import android.view.animation.GridLayoutAnimationController;
 import android.view.animation.LayoutAnimationController;
+import android.widget.EditText;
+import android.widget.Filter;
 import android.widget.FrameLayout;
 import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import com.java.ppm.vii.thepoint.database.*;
 
 import com.bumptech.glide.Glide;
 import com.java.ppm.vii.thepoint.R;
@@ -26,9 +34,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import static java.lang.Math.floor;
+import static java.lang.Math.tan;
 
 
 /**ToDo: Add Database Synchronisation to allow the Gridlayout to be updated based on Current database Contents
@@ -50,13 +60,22 @@ public class ViewEventActivity extends AppCompatActivity {
 
     ArrayList<VenueCardViewArray> List;
 
+    CardViewEventAdaptor cardadaptor;
+
+    FloatingActionButton MagiCbutton;
+
+    //ArrayList<Event> EList;
+
     RecyclerView GridView;
 
+    CharSequence searchQuery="";
+
     LinearLayoutManager mgr;
-    JSONArray events;
+    //JSONArray events;
+
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_view_event);
 
@@ -64,32 +83,8 @@ public class ViewEventActivity extends AppCompatActivity {
 
         llist = new ArrayList<>();
 
-        try //Database Integration Needs to be Fixed
-        {
+           // post
 
-            //SetMainImage()
-
-            for (int i = 0; i < events.length(); i++) {
-                JSONObject obj = events.getJSONObject(i);
-
-                llist.add(new Event(
-                        obj.getInt("id"),
-                        obj.getString("promoter"),
-                        obj.getString("title"),
-                        obj.getString("date"),
-                        obj.getString("description"),
-                        obj.getDouble("price"),
-                        obj.getString("ticket_url"),
-                        obj.getString("fb_event"),
-                        obj.getString("main_image"),
-                        obj.getInt("active")
-                ));
-            }
-        }
-
-        catch (NullPointerException a)
-        {
-            Toast.makeText(this, "NPE!, Failed to get Venue Details from Database!  " + a, Toast.LENGTH_LONG).show();
 
 
 
@@ -118,15 +113,68 @@ public class ViewEventActivity extends AppCompatActivity {
 
             GridView = findViewById(R.id.venue_recycler_view);
 
+            EditText DisplayQuery = findViewById(R.id.DisplayQuery);
+
+//            MagiCbutton = findViewById(R.id.MagicButton);
 
 
-            CardViewEventAdaptor VenueItemAdapter = new CardViewEventAdaptor(ViewEventActivity.this, List/*.getItems*/); //Add ListVenue to the ViewAdaptor
+            cardadaptor = new CardViewEventAdaptor(this, List);
+            GridView.setAdapter(cardadaptor);
+            GridView.setLayoutManager(new GridLayoutManager(this, 3));
+
+            //todo Do not need OnCLick listener here unless the FloatingButton is needed (As it got in the way anyway)
+
+              /*  @Override
+                public int getItemCount() {
+                    return super.getItemCount();
+                }
+            {
+            };
+            Rec*/
+//            MagiCbutton.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v)
+//                {
+//                    cardadaptor = new CardViewEventAdaptor(getApplicationContext(),List/*mData*/);
+//                    if(!searchQuery.toString().isEmpty())
+//                    {
+//                        cardadaptor.getFilter().filter(searchQuery);
+//                    }
+//                }
+//            });
+
+
+
+            DisplayQuery.addTextChangedListener(new TextWatcher()
+            {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after)
+                {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count)
+                {
+                    cardadaptor.getFilter().filter(s);
+                    searchQuery = s;
+                }
+
+                @Override
+                public void afterTextChanged(Editable s)
+                {
+
+                }
+            });
+
+
+            //CardViewEventAdaptor VenueItemAdapter = new CardViewEventAdaptor(ViewEventActivity.this, List/*.getItems*/); //Add ListVenue to the ViewAdaptor
 
 
 
             //GridLayoutManager gridLayoutManager = new GridLayoutManager(ViewEventActivity.this, 3); //Will This Work?#
             mgr = new LinearLayoutManager(this);
-            GridView.setLayoutManager(new GridLayoutManager(this, 3));
+            //GridView.setLayoutManager(new GridLayoutManager(this, 3));
             //GridView.setElevation(10.1f);
 
             //int ResID = R.anim.grid_layout_animation_from_bottom;
@@ -162,13 +210,13 @@ public class ViewEventActivity extends AppCompatActivity {
             //GridView.setMinimumHeight(10);
             // ToDo: Ignore Above
 
-            GridView.setAdapter(VenueItemAdapter);
-        }
-        catch (JSONException e)
-        {
-            Toast.makeText(this, "Failed to Read JSON ", Toast.LENGTH_LONG).show();
-            //System.err.println();
-        }
+            //GridView.setAdapter(VenueItemAdapter);
+//        }
+//        catch (Exception e)
+//        {
+//            Toast.makeText(this, "Failed to Read JSON "+e, Toast.LENGTH_LONG).show();
+//            //System.err.println();
+//        }
 
 
 

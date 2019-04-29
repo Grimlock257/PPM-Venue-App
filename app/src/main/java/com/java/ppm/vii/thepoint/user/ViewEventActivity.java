@@ -99,21 +99,22 @@ public class ViewEventActivity extends AppCompatActivity {
             for(i = 0; i < j;i++)
             {
 
-                List.add(new VenueCardViewArray("VenueEventTitle: " + i, "EventTime", "", Uri.parse("http://goo.gl/gEgYUd"), 0/*, R.drawable.ic_launcher_foreground*/)); //Add a Null Check to ensure that if the Arrylist<img> returnsnull that a text or image placeholder is used to avoid a potential nullpointer)
+                List.add(new VenueCardViewArray("Venue: " + i, "EventTime", "", Uri.parse("http://goo.gl/gEgYUd"), 0/*, R.drawable.ic_launcher_foreground*/)); //Add a Null Check to ensure that if the Arrylist<img> returnsnull that a text or image placeholder is used to avoid a potential nullpointer)
             }
             //List.add(new VenueCardViewArray("VenueEventTitle: " + i, "EventTime", "", IList.get(1))); //Add a Null Check to ensure that if the Arrylist<img> returnsnull that a text or image placeholder is used to avoid a potential nullpointer)
 
             //todo: Debug Gifs: These can be disabled if the Recyclerview starts to lag
 
-            List.add(new VenueCardViewArray("VenueEventTitle: " + i, "EventTime", "", Uri.parse("https://cdn2.iconfinder.com/data/icons/micon-social-pack/512/playstore-512.png"), 0)); ///*, R.drawable.ic_launcher_foreground*/)); //Add a Null Check to ensure that if the Arrylist<img> returnsnull that a text or image placeholder is used to avoid a potential nullpointer)
-            List.add(new VenueCardViewArray("VenueEventTitle: " + i, "EventTime", "", Uri.parse("https://steamuserimages-a.akamaihd.net/ugc/945082312477061860/C5FDB883ADB442A30401D78428AFA557CE6E5A1F/?imw=481&imh=506&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=true"), 1/*, R.drawable.ic_launcher_foreground*/)); //Add a Null Check to ensure that if the Arrylist<img> returnsnull that a text or image placeholder is used to avoid a potential nullpointer)
-            List.add(new VenueCardViewArray("VenueEventTitle: " + i, "EventTime", "", Uri.parse("https://www.artpeoplegallery.com/wp-content/uploads/2015/09/florian-3.gif"), 1/*, R.drawable.ic_launcher_foreground*/)); //Add a Null Check to ensure that if the Arrylist<img> returnsnull that a text or image placeholder is used to avoid a potential nullpointer)
-            List.add(new VenueCardViewArray("VenueEventTitle: " + i, "EventTime", "", Uri.parse("https://66.media.tumblr.com/155e785eea7dbe19a0b5e6f81c6c3097/tumblr_mzwwaewTU41s2mpexo1_400.gif"), 1/*, R.drawable.ic_launcher_foreground*/)); //Add a Null Check to ensure that if the Arrylist<img> returnsnull that a text or image placeholder is used to avoid a potential nullpointer)
+            List.add(new VenueCardViewArray("AnimTest: " + i, "EventTime", "", Uri.parse("https://cdn2.iconfinder.com/data/icons/micon-social-pack/512/playstore-512.png"), 0)); ///*, R.drawable.ic_launcher_foreground*/)); //Add a Null Check to ensure that if the Arrylist<img> returnsnull that a text or image placeholder is used to avoid a potential nullpointer)
+            List.add(new VenueCardViewArray("AnimTest: " + i, "EventTime", "", Uri.parse("https://steamuserimages-a.akamaihd.net/ugc/945082312477061860/C5FDB883ADB442A30401D78428AFA557CE6E5A1F/?imw=481&imh=506&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=true"), 1/*, R.drawable.ic_launcher_foreground*/)); //Add a Null Check to ensure that if the Arrylist<img> returnsnull that a text or image placeholder is used to avoid a potential nullpointer)
+            List.add(new VenueCardViewArray("AnimTest: " + i, "EventTime", "", Uri.parse("https://www.artpeoplegallery.com/wp-content/uploads/2015/09/florian-3.gif"), 1/*, R.drawable.ic_launcher_foreground*/)); //Add a Null Check to ensure that if the Arrylist<img> returnsnull that a text or image placeholder is used to avoid a potential nullpointer)
+            List.add(new VenueCardViewArray("AnimTest: " + i, "EventTime", "", Uri.parse("https://66.media.tumblr.com/155e785eea7dbe19a0b5e6f81c6c3097/tumblr_mzwwaewTU41s2mpexo1_400.gif"), 1/*, R.drawable.ic_launcher_foreground*/)); //Add a Null Check to ensure that if the Arrylist<img> returnsnull that a text or image placeholder is used to avoid a potential nullpointer)
            //Uri GifUri = Glide.with(this).asGif().load()
 
             GridView = findViewById(R.id.venue_recycler_view);
 
             EditText DisplayQuery = findViewById(R.id.DisplayQuery);
+            DisplayQuery.setSingleLine();
 
 //            MagiCbutton = findViewById(R.id.MagicButton);
 
@@ -158,6 +159,7 @@ public class ViewEventActivity extends AppCompatActivity {
                 {
                     cardadaptor.getFilter().filter(s);
                     searchQuery = s;
+
                 }
 
                 @Override
@@ -165,8 +167,8 @@ public class ViewEventActivity extends AppCompatActivity {
                 {
 
                 }
-            });
 
+            });
 
             //CardViewEventAdaptor VenueItemAdapter = new CardViewEventAdaptor(ViewEventActivity.this, List/*.getItems*/); //Add ListVenue to the ViewAdaptor
 

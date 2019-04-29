@@ -143,7 +143,6 @@ public /*abstract*/ class CardViewEventAdaptor extends RecyclerView.Adapter<Card
             protected void publishResults(CharSequence constraint, FilterResults results)
             {
                 Filterable = (List<VenueCardViewArray>) results.values;
-
                 notifyDataSetChanged();
 
             }

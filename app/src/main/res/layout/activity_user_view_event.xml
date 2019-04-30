@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
 
+
+
     android:layout_height="match_parent"
     android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/VenueConstraintLayout"
-    app:layout_constraintBaseline_toBaselineOf="parent">
+    app:layout_constraintBaseline_toBaselineOf="parent"
+    android:windowActionBar="false"
+    android:windowTitleSize="0dp">
 
 
     <android.support.v7.widget.RecyclerView
@@ -22,7 +26,7 @@
 
         android:hint="Search Me!"
         android:id="@+id/DisplayQuery"
-
+        android:inputType="text"
 
         android:ems="10"
         android:layout_width="0dp"
@@ -53,7 +57,6 @@
 
 
 </android.support.constraint.ConstraintLayout>
-
 
 
 

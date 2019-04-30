@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.GlideBuilder;
+import com.bumptech.glide.GlideContext;
 import com.bumptech.glide.load.model.GlideUrl;
 import com.bumptech.glide.load.resource.gif.GifDrawable;
 import com.bumptech.glide.request.Request;
@@ -49,9 +50,11 @@ public /*abstract*/ class CardViewEventAdaptor extends RecyclerView.Adapter<Card
         //this
     }
 
+    @NonNull
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View App2view;
+        //this.mContext = parent.getContext();
         LayoutInflater mInflator = LayoutInflater.from(mContext);
         App2view = mInflator.inflate(R.layout.cardview_user_show_event, parent, false);
         //URL = "http://goo.gl/gEgYUd";
@@ -60,27 +63,28 @@ public /*abstract*/ class CardViewEventAdaptor extends RecyclerView.Adapter<Card
 
 
     @Override
-    public void onBindViewHolder(final ViewHolder Holder, final int Pos) {
+    public void onBindViewHolder(final ViewHolder Holder, int Pos) {
 
-
+        //int loc = Holder.getAdapterPosition();
         Holder.VenueViewText.setText(Filterable.get(Pos).getVenueId());
 
         /*Uri load = Uri.parse("https://cdn.dribbble.com/users/108390/screenshots/2882839/spinner-loop.gif"); //tried to add a loading animation whilst the images are being loaded into the Adaptor
         String Load = "https://cdn.dribbble.com/users/108390/screenshots/2882839/spinner-loop.gif";*/
-        if (mData.get(Pos).getIsGIF() == 1) {
-            Glide.with(mContext).asGif()/*.placeholder(Uri.parse("https://cdn.dribbble.com/users/108390/screenshots/2882839/spinner-loop.gif"))*/.load(mData.get(Pos).getImgUri())/*.placeholder()*/.into(Holder.img_Venue);
+//        if (mData.get(Pos).getIsGIF() == 1) {
+//            Glide.with(Holder.itemView.getContext()).asGif()/*.placeholder(Uri.parse("https://cdn.dribbble.com/users/108390/screenshots/2882839/spinner-loop.gif"))*/.load(mData.get(Pos).getImgUri())/*.placeholder()*/.into(Holder.img_Venue);
+//
+//        } else {
+            Glide.with(Holder.itemView.getContext()).load(Filterable.get(Pos).getImgUri())/*.placeholder()*/.into(Holder.img_Venue); //Must load pos into FIlterable ArryList to Allow Glide to implement teh images correctly!
 
-        } else {
-            Glide.with(mContext).asDrawable().load(mData.get(Pos).getImgUri()).into(Holder.img_Venue);
-        }
+       // }
 
         Holder.VenueCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent Viwer;
                 Viwer = new Intent(mContext, AptResult.class); //Sets Content to this Activity and the Specific elements of the CardviewAdaptor interacted with?
-                String venueid = Filterable.get(Pos).getVenueId();
-                Uri ImgUri = Filterable.get(Pos).getImgUri();
+                String venueid = Filterable.get(Holder.getAdapterPosition()).getVenueId();
+                Uri ImgUri = Filterable.get(Holder.getAdapterPosition()).getImgUri();
 
                 Viwer.putExtra("venueid", venueid);/*mData.get(Pos).getVenueId())*/
                 ;
@@ -107,7 +111,7 @@ public /*abstract*/ class CardViewEventAdaptor extends RecyclerView.Adapter<Card
         return new Filter()
         {
             @Override
-            protected FilterResults performFiltering(CharSequence constraint)
+            public FilterResults performFiltering(CharSequence constraint)
             {
 
                 String Key = constraint.toString();
@@ -129,6 +133,7 @@ public /*abstract*/ class CardViewEventAdaptor extends RecyclerView.Adapter<Card
                         Filterable = lstLev;
 
                     }
+
                 }
                 FilterResults filterResults = new FilterResults();
 
@@ -142,8 +147,10 @@ public /*abstract*/ class CardViewEventAdaptor extends RecyclerView.Adapter<Card
             @Override
             protected void publishResults(CharSequence constraint, FilterResults results)
             {
-                Filterable = (List<VenueCardViewArray>) results.values;
+                //Filterable = mData;
+
                 notifyDataSetChanged();
+                //GlideBuilder
 
             }
 

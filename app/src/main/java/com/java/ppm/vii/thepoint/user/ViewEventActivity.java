@@ -1,5 +1,6 @@
 package com.java.ppm.vii.thepoint.user;
 
+import android.app.ActionBar;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +13,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.view.ViewGroup;
 import android.support.design.widget.FloatingActionButton;
+import android.view.Window;
 import android.view.animation.AnimationUtils;
 import android.view.animation.GridLayoutAnimationController;
 import android.view.animation.LayoutAnimationController;
@@ -77,6 +79,8 @@ public class ViewEventActivity extends AppCompatActivity {
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
+        getSupportActionBar().hide();
         setContentView(R.layout.activity_user_view_event);
 
         //updateEventList(llist);
@@ -94,7 +98,7 @@ public class ViewEventActivity extends AppCompatActivity {
             List = new ArrayList<>();
             Random rand = new Random();
 
-            int j = rand.nextInt(16 - 3);  //RNG Generator to demonstrate the Non_Static elements fo the GridLayout
+            int j = rand.nextInt(12 - 1);  //RNG Generator to demonstrate the Non_Static elements fo the GridLayout
             int i;
             for(i = 0; i < j;i++)
             {
@@ -105,9 +109,10 @@ public class ViewEventActivity extends AppCompatActivity {
 
             //todo: Debug Gifs: These can be disabled if the Recyclerview starts to lag
 
-            List.add(new VenueCardViewArray("AnimTest: " + i, "EventTime", "", Uri.parse("https://cdn2.iconfinder.com/data/icons/micon-social-pack/512/playstore-512.png"), 0)); ///*, R.drawable.ic_launcher_foreground*/)); //Add a Null Check to ensure that if the Arrylist<img> returnsnull that a text or image placeholder is used to avoid a potential nullpointer)
-            List.add(new VenueCardViewArray("AnimTest: " + i, "EventTime", "", Uri.parse("https://steamuserimages-a.akamaihd.net/ugc/945082312477061860/C5FDB883ADB442A30401D78428AFA557CE6E5A1F/?imw=481&imh=506&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=true"), 1/*, R.drawable.ic_launcher_foreground*/)); //Add a Null Check to ensure that if the Arrylist<img> returnsnull that a text or image placeholder is used to avoid a potential nullpointer)
-            List.add(new VenueCardViewArray("AnimTest: " + i, "EventTime", "", Uri.parse("https://www.artpeoplegallery.com/wp-content/uploads/2015/09/florian-3.gif"), 1/*, R.drawable.ic_launcher_foreground*/)); //Add a Null Check to ensure that if the Arrylist<img> returnsnull that a text or image placeholder is used to avoid a potential nullpointer)
+            List.add(new VenueCardViewArray("AnimTest: " + i++, "EventTime", "", Uri.parse("https://cdn2.iconfinder.com/data/icons/micon-social-pack/512/playstore-512.png"), 0)); ///*, R.drawable.ic_launcher_foreground*/)); //Add a Null Check to ensure that if the Arrylist<img> returnsnull that a text or image placeholder is used to avoid a potential nullpointer)
+            List.add(new VenueCardViewArray("AnimTest: " + i++, "EventTime", "", Uri.parse("https://steamuserimages-a.akamaihd.net/ugc/945082312477061860/C5FDB883ADB442A30401D78428AFA557CE6E5A1F/?imw=481&imh=506&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=true"), 1/*, R.drawable.ic_launcher_foreground*/)); //Add a Null Check to ensure that if the Arrylist<img> returnsnull that a text or image placeholder is used to avoid a potential nullpointer)
+            List.add(new VenueCardViewArray("AnimTest: " + i++, "EventTime", "", Uri.parse("https://www.artpeoplegallery.com/wp-content/uploads/2015/09/florian-3.gif"), 1/*, R.drawable.ic_launcher_foreground*/)); //Add a Null Check to ensure that if the Arrylist<img> returnsnull that a text or image placeholder is used to avoid a potential nullpointer)
+            List.add(new VenueCardViewArray("AnimTest: " + i++, "EventTime", "", Uri.parse("https://png2.kisspng.com/sh/a4b621d32d27776871343ae45dfbe5b1/L0KzQYm3VMExN5pBj5H0aYP2gLBuTfNwdaF6jNd7LXnmf7B6Tflkd58yfNd8aXfxPbL3kL10fJD3fZ9CaHn2gLb5TcVia5Q5fNYCOETlQoSATsY1PGQ3UakCMUW1Q4S6WMcyOWY5S6g3cH7q/kisspng-computer-icons-icon-design-app-store-whisper-5acc4dd784b237.6443297715233387115436.png"), 0));
             List.add(new VenueCardViewArray("AnimTest: " + i, "EventTime", "", Uri.parse("https://66.media.tumblr.com/155e785eea7dbe19a0b5e6f81c6c3097/tumblr_mzwwaewTU41s2mpexo1_400.gif"), 1/*, R.drawable.ic_launcher_foreground*/)); //Add a Null Check to ensure that if the Arrylist<img> returnsnull that a text or image placeholder is used to avoid a potential nullpointer)
            //Uri GifUri = Glide.with(this).asGif().load()
 
@@ -118,6 +123,29 @@ public class ViewEventActivity extends AppCompatActivity {
 
 //            MagiCbutton = findViewById(R.id.MagicButton);
 
+        DisplayQuery.addTextChangedListener(new TextWatcher()
+        {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after)
+            {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count)
+            {
+                cardadaptor.getFilter().filter(s);
+                searchQuery = s;
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s)
+            {
+
+            }
+
+        });
 
             cardadaptor = new CardViewEventAdaptor(this, List);
             GridView.setAdapter(cardadaptor);
@@ -146,29 +174,7 @@ public class ViewEventActivity extends AppCompatActivity {
 
 
 
-            DisplayQuery.addTextChangedListener(new TextWatcher()
-            {
-                @Override
-                public void beforeTextChanged(CharSequence s, int start, int count, int after)
-                {
 
-                }
-
-                @Override
-                public void onTextChanged(CharSequence s, int start, int before, int count)
-                {
-                    cardadaptor.getFilter().filter(s);
-                    searchQuery = s;
-
-                }
-
-                @Override
-                public void afterTextChanged(Editable s)
-                {
-
-                }
-
-            });
 
             //CardViewEventAdaptor VenueItemAdapter = new CardViewEventAdaptor(ViewEventActivity.this, List/*.getItems*/); //Add ListVenue to the ViewAdaptor
 

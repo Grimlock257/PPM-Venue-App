@@ -2,73 +2,95 @@ package com.java.ppm.vii.thepoint.user;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.GlideBuilder;
+import com.bumptech.glide.GlideContext;
+import com.bumptech.glide.load.model.GlideUrl;
+import com.bumptech.glide.load.resource.gif.GifDrawable;
+import com.bumptech.glide.request.Request;
+import com.bumptech.glide.request.target.DrawableImageViewTarget;
+import com.bumptech.glide.request.target.SizeReadyCallback;
+import com.bumptech.glide.request.target.Target;
+import com.bumptech.glide.request.transition.Transition;
 import com.java.ppm.vii.thepoint.R;
 import com.java.ppm.vii.thepoint.database.entity.Event;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class CardViewEventAdaptor extends RecyclerView.Adapter<CardViewEventAdaptor.ViewHolder>
+public /*abstract*/ class CardViewEventAdaptor extends RecyclerView.Adapter<CardViewEventAdaptor.ViewHolder> implements Filterable
 {
     private Context mContext;
     private List<VenueCardViewArray> mData;
-//    TextView eventTitle;
-//    TextView eventDate;
-    // private List<String>
+    private ImageView VImages;
+    private List<VenueCardViewArray> Filterable;
+    //private String URL;
 
-    public CardViewEventAdaptor(Context adapterContext, List<VenueCardViewArray> mData) //Fixed bug where List parameter was accidentally set to the old name of mData, mValues, which causes a NPE where getItemCOunt returned as null as the Viewadpator could npt see mData due to this Typo  //Do Not need dummy as we need the VenueImplementable class Structure actually Containing the Venue Data grabed from the Web Side. //DO We Need the Dummy to collect the List array for the GUI?
+
+    public CardViewEventAdaptor(Context adapterContext, List<VenueCardViewArray> mData /*List<VenueCardViewArray> Filterable*/) //Fixed bug where List parameter was accidentally set to the old name of mData, mValues, which causes a NPE where getItemCOunt returned as null as the Viewadpator could npt see mData due to this Typo  //Do Not need dummy as we need the VenueImplementable class Structure actually Containing the Venue Data grabed from the Web Side. //DO We Need the Dummy to collect the List array for the GUI?
     {
         this.mContext = adapterContext;  //Adds Context to the List?
         this.mData = mData;
+        this.Filterable = mData;
         //this
     }
 
+    @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
-    {
-        View App2view; //?May need to be changed back to appView if issue incurred //Renaming should help distinguish from other views;
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View App2view;
+        //this.mContext = parent.getContext();
         LayoutInflater mInflator = LayoutInflater.from(mContext);
         App2view = mInflator.inflate(R.layout.cardview_user_show_event, parent, false);
+        //URL = "http://goo.gl/gEgYUd";
         return new ViewHolder(App2view);
     }
 
 
     @Override
-    public void onBindViewHolder(final ViewHolder Holder, final int Pos) {
-        //Item item = mData.get(Pos);
-        //Holder currentEvent = mData.get(Pos);
+    public void onBindViewHolder(final ViewHolder Holder, int Pos) {
 
-        Holder.VenueViewText.setText(mData.get(Pos).getVenueId());
-        //eventViewHolder.eventDate.setText(currentEvent.getDate())
-//        Holder.VenueViewText.setText(mData.get(Pos).getId());  //Grabs Venue ID Directly
-//        //Holder.mView.get
-//        //Holder.
-//        Holder.VenueViewText.setText(mData.get(Pos).getDate()); //Grabs Venue img directly, is set to int so may cause issues as the rest of the mData List is Strings not ints
-//        Holder.img_Venue.setImageResource(mData.get(Pos).getImgID()); //Grabs Venue img directly, is set to int so may cause issues as the rest of the mData List is Strings not ints
-        //Glide.with(mContext).load("http://goo.gl/gEgYUd").into(geti)
-        //Glide.with(this.mContext).load(mData.get(Pos)).diskCacheStrategy(DiskCacheStrategy.ALL).into(Holder.img_Venue()); //May be wrong method +Context to prepare image grabber
+        //int loc = Holder.getAdapterPosition();
+        Holder.VenueViewText.setText(Filterable.get(Pos).getVenueId());
 
+        /*Uri load = Uri.parse("https://cdn.dribbble.com/users/108390/screenshots/2882839/spinner-loop.gif"); //tried to add a loading animation whilst the images are being loaded into the Adaptor
+        String Load = "https://cdn.dribbble.com/users/108390/screenshots/2882839/spinner-loop.gif";*/
+//        if (mData.get(Pos).getIsGIF() == 1) {
+//            Glide.with(Holder.itemView.getContext()).asGif()/*.placeholder(Uri.parse("https://cdn.dribbble.com/users/108390/screenshots/2882839/spinner-loop.gif"))*/.load(mData.get(Pos).getImgUri())/*.placeholder()*/.into(Holder.img_Venue);
+//
+//        } else {
+            Glide.with(Holder.itemView.getContext()).load(Filterable.get(Pos).getImgUri())/*.placeholder()*/.into(Holder.img_Venue); //Must load pos into FIlterable ArryList to Allow Glide to implement teh images correctly!
 
-        Holder.VenueCard.setOnClickListener(new View.OnClickListener()
-        {
+       // }
+
+        Holder.VenueCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent Viwer;
                 Viwer = new Intent(mContext, AptResult.class); //Sets Content to this Activity and the Specific elements of the CardviewAdaptor interacted with?
-                String venueid = mData.get(Pos).getVenueId();
-                //String imgid = mData.get(Pos).getImgIDtoStringHelper(); //Hacky Method to get imgID to String may be Problematic?
-                int imgID = mData.get(Pos).getImgID();
+                String venueid = Filterable.get(Holder.getAdapterPosition()).getVenueId();
+                Uri ImgUri = Filterable.get(Holder.getAdapterPosition()).getImgUri();
 
-                Viwer.putExtra("venueid", venueid);/*mData.get(Pos).getVenueId())*/;
-                Viwer.putExtra("imgID", imgID);
+                Viwer.putExtra("venueid", venueid);/*mData.get(Pos).getVenueId())*/
+                ;
+                //Viwer.putExtra("imgID", );
+                Viwer.putExtra("ImgLoc", ImgUri/*Holder.UriGrabber*/); //IS this Broken?
+                //Viwer.toUri(ImgUri); //IS this Broken?
                 v.getContext().startActivity(Viwer);
 
 
@@ -77,39 +99,85 @@ public class CardViewEventAdaptor extends RecyclerView.Adapter<CardViewEventAdap
         });
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    @Override
+    public int getItemCount()
+    {
+        return Filterable.size();
+    }
+
+    @Override
+    public Filter getFilter/*getFiltered*/()
+    {
+        return new Filter()
+        {
+            @Override
+            public FilterResults performFiltering(CharSequence constraint)
+            {
+
+                String Key = constraint.toString();
+                if (Key.isEmpty())
+                {
+                    Filterable = mData;
+                }
+                else
+                    {
+                    java.util.List<VenueCardViewArray> lstLev = new ArrayList<>();
+                    for (VenueCardViewArray Coord : mData)
+                    {
+                        if (Coord.getVenueId().toLowerCase().contains(Key.toLowerCase()))
+                        {
+                            lstLev.add(Coord);
+
+                        }
+
+                        Filterable = lstLev;
+
+                    }
+
+                }
+                FilterResults filterResults = new FilterResults();
+
+                filterResults.values = Filterable;
+
+                return filterResults;
+
+
+            }
+
+            @Override
+            protected void publishResults(CharSequence constraint, FilterResults results)
+            {
+                //Filterable = mData;
+
+                notifyDataSetChanged();
+                //GlideBuilder
+
+            }
+
+
+        };
+    }
+
+                    public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
         TextView VenueViewText;
         TextView eventdate;
-        String imgGrabber;
         ImageView img_Venue;
         CardView VenueCard;
-
         public ViewHolder(View App2view)
         {
             super(App2view);
             mView = App2view;
             VenueViewText = (TextView) App2view.findViewById(R.id.venue_title);
-            //imgGrabber =
-            //eventDate = App2view.findViewById(R.id.)
-            img_Venue = /*(ImageView)*/ App2view.findViewById(R.id.venue_cover_Loader); //venue_cover_id
-            //Glide.with(mContext).load(geti).into(img_Venue); //may be icnorretc location to imploemnt Gldie into the Arraylist img_Venue
 
-            //mContentView = (TextView) App2view.findViewById(R.id.content);
+            img_Venue = /*(ImageView)*/ App2view.findViewById(R.id.venue_cover_Loader); //venue_cover_id
+
             VenueCard = (CardView) App2view.findViewById(R.id.VenueCardView);
         }
 
-//        public ImageView getImg_Venue() //Image garrper impelmented via Glide  //Where is this Method Decailred?
-//        {
-//            return this.img_Venue;
-//        }
-
 
     }
-    @Override
-    public int getItemCount() {
-        return mData.size();
-    }
+
 
 
 }

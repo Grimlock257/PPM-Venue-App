@@ -8,6 +8,10 @@
         <item name="colorAccent">@color/colorAccent</item>
 
         <item name="android:windowSoftInputMode">stateHidden</item>
+
+        <!-- Disable default ActionBar -->
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
     </style>
 
     <style name="dialog" parent="Theme.AppCompat.Light.Dialog.Alert">

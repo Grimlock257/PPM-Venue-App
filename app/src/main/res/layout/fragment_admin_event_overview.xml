@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".admin.EventOverviewActivity">
+    tools:context=".admin.EventOverviewFragment">
 
     <TextView
         android:id="@+id/activityTitle"
@@ -35,15 +35,6 @@
         android:layout_alignParentBottom="true"
         android:background="@color/colorSuccess"
         android:text="@string/btn_new_event" />
-
-    <Button
-        android:id="@+id/buttonShowCardView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="48dp"
-        android:background="@color/colorAccent"
-        android:text="Show CardView" />
 
     <ProgressBar
         android:id="@+id/progressBar"

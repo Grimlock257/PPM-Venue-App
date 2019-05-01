@@ -4,7 +4,9 @@
     <!-- This is the internet permission -->
     <uses-permission android:name="android.permission.INTERNET" />
 
+    <!-- android:usesCleartextTraffic="true" - switch to Network Config XML with WhiteList? -->
     <application
+        android:usesCleartextTraffic="true"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -14,7 +16,7 @@
         <activity android:name=".admin.CreateEventActivity"></activity>
         <activity android:name=".admin.EditEventActivity" />
         <activity android:name=".user.ViewEventActivity" />
-        <activity android:name=".admin.EventOverviewActivity">
+        <activity android:name=".admin.AdminActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

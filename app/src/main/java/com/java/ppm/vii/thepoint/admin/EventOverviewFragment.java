@@ -4,11 +4,15 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -18,7 +22,6 @@ import com.java.ppm.vii.thepoint.database.API;
 import com.java.ppm.vii.thepoint.database.HTTPMethod;
 import com.java.ppm.vii.thepoint.database.RequestHandler;
 import com.java.ppm.vii.thepoint.database.entity.Event;
-
 import com.java.ppm.vii.thepoint.user.ViewEventActivity;
 
 import org.json.JSONArray;
@@ -33,7 +36,7 @@ import static android.view.View.GONE;
 /**
  * Activity for event overview
  */
-public class EventOverviewActivity extends AppCompatActivity {
+public class EventOverviewFragment extends Fragment {
 
     private ArrayList<Event> eventList;
 
@@ -42,48 +45,43 @@ public class EventOverviewActivity extends AppCompatActivity {
     ProgressBar progressBar;
     RecyclerView.LayoutManager layoutManager;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_admin_event_overview);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_admin_event_overview, container, false);
+    }
 
-        initLayoutViews();
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        initLayoutViews(view);
 
         fetchEvents();
     }
 
     /**
      * Initialise the layout view elements and set listeners, if applicable
+     *
+     * @param view The root view in which view will be located
      */
-    private void initLayoutViews() {
+    private void initLayoutViews(View view) {
         // Create references to views on the layout
-        progressBar = findViewById(R.id.progressBar);
-        recyclerView = findViewById(R.id.recyclerView);
-        layoutManager = new LinearLayoutManager(this);
+        progressBar = view.findViewById(R.id.progressBar);
+        recyclerView = view.findViewById(R.id.recyclerView);
+        layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
 
         // Create onClickListener for the create button
-        Button btnAddEvent = findViewById(R.id.buttonAddEvent);
+        Button btnAddEvent = view.findViewById(R.id.buttonAddEvent);
         btnAddEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent myIntent = new Intent(getApplicationContext(), CreateEventActivity.class);
+                Intent myIntent = new Intent(getActivity(), CreateEventActivity.class);
                 startActivity(myIntent);
-            }
-        });
-        Button ShowCardview = findViewById(R.id.buttonShowCardView); //Connor-vcmp: Please remove this Button if it causes issues as this is a hacked in method to load the CardView
-        ShowCardview.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent Load = new Intent(/*v.getContext()*/getApplicationContext(), ViewEventActivity.class);
-                /*v.getContext().*/startActivity(Load);
             }
         });
     }
 
     @Override
-    protected void onResume() {
+    public void onResume() {
         super.onResume();
 
         // When this activity is resumed, update the event RecyclerView
@@ -158,7 +156,7 @@ public class EventOverviewActivity extends AppCompatActivity {
                 Event event = eventList.get(position);
 
                 // Create an intent to open the EditEventActivity, store the clicked event inside the intent
-                Intent intentEditEvent = new Intent(getApplicationContext(), EditEventActivity.class);
+                Intent intentEditEvent = new Intent(getActivity(), EditEventActivity.class);
                 intentEditEvent.putExtra("event", event);
                 startActivity(intentEditEvent);
             }
@@ -169,7 +167,7 @@ public class EventOverviewActivity extends AppCompatActivity {
                 final Event event = eventList.get(position);
 
                 // Create a new AlertDialog for confirmation
-                AlertDialog.Builder builder = new AlertDialog.Builder(EventOverviewActivity.this, R.style.dialog);
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.dialog);
 
                 builder.setTitle(event.getTitle())
                         .setMessage("Are you sure you want to delete this event? This cannot be undone!")
@@ -226,7 +224,7 @@ public class EventOverviewActivity extends AppCompatActivity {
                 JSONObject object = new JSONObject(string);
 
                 if (!object.getBoolean("error")) {
-                    Toast.makeText(getApplicationContext(), object.getString("message"), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), object.getString("message"), Toast.LENGTH_SHORT).show();
                     updateEventList(object.getJSONArray("data"));
                 }
             } catch (JSONException e) {

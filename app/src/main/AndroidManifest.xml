@@ -15,7 +15,7 @@
         android:theme="@style/AppTheme">
         <activity android:name=".admin.CreateEventActivity"></activity>
         <activity android:name=".admin.EditEventActivity" />
-        <activity android:name=".user.ViewEventActivity" />
+        <activity android:name=".user.EventOverviewActivity" />
         <activity android:name=".admin.AdminActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,7 +23,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".user.AptResult" />
+        <activity android:name=".user.ViewEventActivity" />
     </application>
 
 </manifest>

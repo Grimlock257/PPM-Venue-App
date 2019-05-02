@@ -1,19 +1,14 @@
-package com.java.ppm.vii.thepoint.admin;
+package com.java.ppm.vii.thepoint.user;
 
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -31,50 +26,69 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import static android.view.View.GONE;
+import static java.lang.Math.floor;
 
 /**
- * Activity for event overview
+ * ToDo: Add Database Synchronisation to allow the Gridlayout to be updated based on Current database Contents
+ * Also need to add Gridlayout GUI correction to fix the Wonky Margins as well as to programmatically adjust based on Phone resolution and Aspect Ratio
+ * Add Search and tagging system if time permitting
+ * Animation Handler for loading. Rotating Tiles?
+ * Swipe to Left to add tiles to the User accounts preferences/Saved/Followed Venues?
+ * Worth bothering to fix the Gif Bug with laggy Encoding?
  */
-public class EventOverviewFragment extends Fragment {
 
-    private ArrayList<Event> eventList;
+public class EventOverviewActivity extends AppCompatActivity {
 
-    EventAdapter adapter;
+    ArrayList<Event> eventList;
     RecyclerView recyclerView;
+    EventAdapter adapter; // TODO: Local variable?
     ProgressBar progressBar;
-    RecyclerView.LayoutManager layoutManager;
-
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_admin_event_overview, container, false);
-    }
+    GridLayoutManager layoutManager;
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        initLayoutViews(view);
+    protected void onCreate(final Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_user_event_overview);
+
+        initLayoutViews();
+
+        initSearch();
 
         fetchEvents();
     }
 
     /**
      * Initialise the layout view elements and set listeners, if applicable
-     *
-     * @param view The root view in which view will be located
      */
-    private void initLayoutViews(View view) {
+    private void initLayoutViews() {
         // Create references to views on the layout
-        progressBar = view.findViewById(R.id.progressBar);
-        recyclerView = view.findViewById(R.id.recyclerView);
-        layoutManager = new LinearLayoutManager(getActivity());
-        recyclerView.setHasFixedSize(true);
+        progressBar = findViewById(R.id.progressBar);
+        recyclerView = findViewById(R.id.venue_recycler_view);
+        layoutManager = new GridLayoutManager(getApplicationContext(), 3);
         recyclerView.setLayoutManager(layoutManager);
+        recyclerView.getLayoutParams().width = (int) floor((getResources().getDisplayMetrics().widthPixels) / 1.05f); //This allows a margin to be set around the tiles with any resolution
+    }
 
-        // Create onClickListener for the create button
-        Button btnAddEvent = view.findViewById(R.id.buttonAddEvent);
-        btnAddEvent.setOnClickListener(new View.OnClickListener() {
+    /**
+     * Initialise the search input text field and create a listener to handle input
+     */
+    private void initSearch() {
+        EditText DisplayQuery = findViewById(R.id.DisplayQuery);
+        DisplayQuery.setSingleLine();
+        DisplayQuery.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onClick(View v) {
-                Intent myIntent = new Intent(getActivity(), CreateEventActivity.class);
-                startActivity(myIntent);
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                adapter.getFilter().filter(s);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
             }
         });
     }
@@ -88,16 +102,6 @@ public class EventOverviewFragment extends Fragment {
     }
 
     /**
-     * Create a NetworkRequest to delete an event with the provided ID from the database
-     *
-     * @param id The ID of the event to delete
-     */
-    private void deleteEvent(int id) {
-        NetworkRequest request = new NetworkRequest(API.DELETE.getURL() + id, null, HTTPMethod.GET);
-        request.execute();
-    }
-
-    /**
      * Create a NetworkRequest to retrieve the events from the database
      */
     private void fetchEvents() {
@@ -106,8 +110,8 @@ public class EventOverviewFragment extends Fragment {
     }
 
     /**
-     * This method refreshes the RecyclerView for the event list by taking in the new data and
-     * updating the RecyclerView
+     * This method refreshes the CardView for the event list by taking in the new data and
+     * updating the CardView
      *
      * @param events The JSONArray of events (as this data is returned from the database)
      *
@@ -140,49 +144,11 @@ public class EventOverviewFragment extends Fragment {
     }
 
     /**
-     * This method updates the RecyclerView using the using the eventList. Sets onItemClickListeners
-     * for buttons on each card
+     * This method updates the RecyclerView using the using the eventList.
      */
     public void updateRecyclerView() {
         adapter = new EventAdapter(eventList);
         recyclerView.setAdapter(adapter);
-
-        // Create an listener for elements within the card
-        adapter.setOnItemClickListener(new EventAdapter.OnItemClickListener() {
-            @Override
-            public void onEditClick(int position) {
-                // Retrieve the clicked event
-                Event event = eventList.get(position);
-
-                // Create an intent to open the EditEventActivity, store the clicked event inside the intent
-                Intent intentEditEvent = new Intent(getActivity(), EditEventActivity.class);
-                intentEditEvent.putExtra("event", event);
-                startActivity(intentEditEvent);
-            }
-
-            @Override
-            public void onDeleteClick(int position) {
-                // Retrieve the clicked event
-                final Event event = eventList.get(position);
-
-                // Create a new AlertDialog for confirmation
-                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.dialog);
-
-                builder.setTitle(event.getTitle())
-                        .setMessage("Are you sure you want to delete this event? This cannot be undone!")
-                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                deleteEvent(event.getId());
-                            }
-                        })
-                        .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                            }
-                        })
-                        .setIcon(android.R.drawable.ic_dialog_alert)
-                        .show();
-            }
-        });
     }
 
     /**
@@ -223,7 +189,7 @@ public class EventOverviewFragment extends Fragment {
                 JSONObject object = new JSONObject(string);
 
                 if (!object.getBoolean("error")) {
-                    Toast.makeText(getActivity(), object.getString("message"), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), object.getString("message"), Toast.LENGTH_SHORT).show();
                     updateEventList(object.getJSONArray("data"));
                 }
             } catch (JSONException e) {

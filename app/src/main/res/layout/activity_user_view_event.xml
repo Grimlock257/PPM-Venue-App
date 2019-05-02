@@ -1,64 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-
-
-
-    android:layout_height="match_parent"
-    android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/VenueConstraintLayout"
-    app:layout_constraintBaseline_toBaselineOf="parent"
-    android:windowActionBar="false"
-    android:windowTitleSize="0dp">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".user.ViewEventActivity">
 
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/venue_recycler_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:orientation="vertical"
-        android:padding="12dp"
-
-        android:layout_marginTop="48dp"/>
+    <ImageView
+        android:id="@+id/eventImage"
+        android:layout_width="256dp"
+        android:layout_height="256dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="180dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-
-        android:hint="Search Me!"
-        android:id="@+id/DisplayQuery"
+        android:id="@+id/eventTitle"
+        android:layout_width="220dp"
+        android:layout_height="120dp"
+        android:layout_marginStart="104dp"
+        android:layout_marginLeft="104dp"
+        android:layout_marginTop="220dp"
+        android:gravity="center"
         android:inputType="text"
-
-        android:ems="10"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:imeOptions="actionDone"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="0dp"
-        android:layout_marginLeft="12dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="12dp"
-
-        app:layout_constraintEnd_toEndOf="parent"
+        android:visibility="visible"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-
-        android:visibility="visible" />
-
-
-
-
-<!--    <android.support.design.widget.FloatingActionButton-->
-<!--        android:id="@+id/MagicButton"-->
-<!--        android:layout_width="64dp"-->
-<!--        android:layout_height="64dp"-->
-
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent" />-->
-
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
-
-
-
-<!--
-</LinearLayout>-->

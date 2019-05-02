@@ -13,7 +13,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.java.ppm.vii.thepoint.R;
-import com.java.ppm.vii.thepoint.user.ViewEventActivity;
+import com.java.ppm.vii.thepoint.user.EventOverviewActivity;
 
 public class AdminActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -67,10 +67,10 @@ public class AdminActivity extends AppCompatActivity implements NavigationView.O
                 Toast.makeText(this, "You've selected create event", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.nav_admin_user_view:
-                Toast.makeText(this, "You've selected user view", Toast.LENGTH_SHORT).show();
+                // Toast.makeText(this, "You've selected user view", Toast.LENGTH_SHORT).show();
 
                 // Open the user view event page
-                Intent Load = new Intent(getApplicationContext(), ViewEventActivity.class);
+                Intent Load = new Intent(getApplicationContext(), EventOverviewActivity.class);
                 startActivity(Load);
                 break;
         }

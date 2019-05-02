@@ -30,7 +30,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import static android.view.View.GONE;
-import static java.lang.Math.floor;
 
 /**
  * ToDo: Add Database Synchronisation to allow the Gridlayout to be updated based on Current database Contents
@@ -52,14 +51,15 @@ public class EventOverviewFragment extends Fragment {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.activity_user_event_overview, container, false);
+        return inflater.inflate(R.layout.fragment_user_event_overview, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         initLayoutViews(view);
 
-        initSearch();
+        // TODO: Issue #1 on GitHub. Causes NPE when no data or device rotated
+        // initSearch();
 
         fetchEvents();
     }
@@ -71,10 +71,9 @@ public class EventOverviewFragment extends Fragment {
         // Create references to views on the layout
         progressBar = view.findViewById(R.id.progressBar);
         recyclerView = view.findViewById(R.id.venue_recycler_view);
-        searchField = view.findViewById(R.id.DisplayQuery);
+        searchField = view.findViewById(R.id.searchField);
         layoutManager = new GridLayoutManager(getActivity(), 3);
         recyclerView.setLayoutManager(layoutManager);
-        recyclerView.getLayoutParams().width = (int) floor((getResources().getDisplayMetrics().widthPixels) / 1.05f); //This allows a margin to be set around the tiles with any resolution
     }
 
     /**

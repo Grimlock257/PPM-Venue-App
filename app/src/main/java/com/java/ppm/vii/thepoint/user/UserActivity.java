@@ -1,6 +1,7 @@
 package com.java.ppm.vii.thepoint.user;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -10,6 +11,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.java.ppm.vii.thepoint.R;
 import com.java.ppm.vii.thepoint.admin.AdminActivity;
@@ -61,6 +63,30 @@ public class UserActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_user_events:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new EventOverviewFragment()).commit();
                 break;
+            case R.id.nav_user_gallery:
+                // TODO: Implement
+                Toast.makeText(this, "You've selected Gallery", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.nav_user_about_us:
+                // TODO: Implement
+                Toast.makeText(this, "You've selected About Us", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.nav_user_contact_us:
+                // TODO: Implement
+                Toast.makeText(this, "You've selected Contact Us", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.nav_user_instagram:
+                Toast.makeText(this, "Opening Instagram page...", Toast.LENGTH_SHORT).show();
+                goToSite("https://www.instagram.com/ntsuents");
+                break;
+            case R.id.nav_user_twitter:
+                Toast.makeText(this, "Opening Twitter page...", Toast.LENGTH_SHORT).show();
+                goToSite("https://twitter.com/NTSUents");
+                break;
+            case R.id.nav_user_facebook:
+                Toast.makeText(this, "Opening Facebook page...", Toast.LENGTH_SHORT).show();
+                goToSite("https://www.facebook.com/NTSUClifton");
+                break;
             case R.id.nav_user_admin_area:
                 // Open the admin area
                 Intent intentAdminArea = new Intent(getApplicationContext(), AdminActivity.class);
@@ -68,8 +94,24 @@ public class UserActivity extends AppCompatActivity implements NavigationView.On
                 break;
         }
 
+        // What ever action happened, close the drawer
         drawer.closeDrawer(GravityCompat.START);
 
         return true;
+    }
+
+    /**
+     * Go to the specified web page
+     *
+     * @param site The web page of which to go to
+     */
+    private void goToSite(String site) {
+        Uri webPage = Uri.parse(site);
+        Intent webIntent = new Intent(Intent.ACTION_VIEW, webPage);
+
+        // Check if there is an activity to handle this intent, if so, open it
+        if (webIntent.resolveActivity(getPackageManager()) != null) {
+            startActivity(webIntent);
+        }
     }
 }

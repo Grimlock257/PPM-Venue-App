@@ -1,4 +1,4 @@
-package com.java.ppm.vii.thepoint.admin;
+package com.java.ppm.vii.thepoint.user;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,27 +10,25 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.java.ppm.vii.thepoint.R;
-import com.java.ppm.vii.thepoint.user.EventOverviewFragment;
-import com.java.ppm.vii.thepoint.user.UserActivity;
+import com.java.ppm.vii.thepoint.admin.AdminActivity;
 
-public class AdminActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class UserActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private DrawerLayout drawer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_admin);
+        setContentView(R.layout.activity_user);
 
         // Use Toolbar as ActionBar due to default ActionBar removed
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         // Set up the hamburger icon for the drawer
-        drawer = findViewById(R.id.drawer_layout_admin);
+        drawer = findViewById(R.id.drawer_layout_user);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
@@ -41,8 +39,8 @@ public class AdminActivity extends AppCompatActivity implements NavigationView.O
 
         // Launch a default fragment
         if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new com.java.ppm.vii.thepoint.admin.EventOverviewFragment()).commit();
-            navigationView.setCheckedItem(R.id.nav_admin_events);
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new EventOverviewFragment()).commit();
+            navigationView.setCheckedItem(R.id.nav_user_events);
         }
     }
 
@@ -60,16 +58,13 @@ public class AdminActivity extends AppCompatActivity implements NavigationView.O
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         // See what the MenuItem was selected and perform the appropriate action
         switch (menuItem.getItemId()) {
-            case R.id.nav_admin_events:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new com.java.ppm.vii.thepoint.admin.EventOverviewFragment()).commit();
+            case R.id.nav_user_events:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new EventOverviewFragment()).commit();
                 break;
-            case R.id.nav_admin_x:
-                Toast.makeText(this, "You've selected create event", Toast.LENGTH_SHORT).show();
-                break;
-            case R.id.nav_admin_user_view:
-                // Open the user view event page
-                Intent intentUserArea = new Intent(getApplicationContext(), UserActivity.class);
-                startActivity(intentUserArea);
+            case R.id.nav_user_admin_area:
+                // Open the admin area
+                Intent intentAdminArea = new Intent(getApplicationContext(), AdminActivity.class);
+                startActivity(intentAdminArea);
                 break;
         }
 

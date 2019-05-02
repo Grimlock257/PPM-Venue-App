@@ -2,12 +2,16 @@ package com.java.ppm.vii.thepoint.user;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -37,20 +41,23 @@ import static java.lang.Math.floor;
  * Worth bothering to fix the Gif Bug with laggy Encoding?
  */
 
-public class EventOverviewActivity extends AppCompatActivity {
+public class EventOverviewFragment extends Fragment {
 
     ArrayList<Event> eventList;
+    EditText searchField;
     RecyclerView recyclerView;
     EventAdapter adapter; // TODO: Local variable?
     ProgressBar progressBar;
     GridLayoutManager layoutManager;
 
     @Override
-    protected void onCreate(final Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_event_overview);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.activity_user_event_overview, container, false);
+    }
 
-        initLayoutViews();
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        initLayoutViews(view);
 
         initSearch();
 
@@ -60,11 +67,12 @@ public class EventOverviewActivity extends AppCompatActivity {
     /**
      * Initialise the layout view elements and set listeners, if applicable
      */
-    private void initLayoutViews() {
+    private void initLayoutViews(View view) {
         // Create references to views on the layout
-        progressBar = findViewById(R.id.progressBar);
-        recyclerView = findViewById(R.id.venue_recycler_view);
-        layoutManager = new GridLayoutManager(getApplicationContext(), 3);
+        progressBar = view.findViewById(R.id.progressBar);
+        recyclerView = view.findViewById(R.id.venue_recycler_view);
+        searchField = view.findViewById(R.id.DisplayQuery);
+        layoutManager = new GridLayoutManager(getActivity(), 3);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.getLayoutParams().width = (int) floor((getResources().getDisplayMetrics().widthPixels) / 1.05f); //This allows a margin to be set around the tiles with any resolution
     }
@@ -73,9 +81,8 @@ public class EventOverviewActivity extends AppCompatActivity {
      * Initialise the search input text field and create a listener to handle input
      */
     private void initSearch() {
-        EditText DisplayQuery = findViewById(R.id.DisplayQuery);
-        DisplayQuery.setSingleLine();
-        DisplayQuery.addTextChangedListener(new TextWatcher() {
+        searchField.setSingleLine();
+        searchField.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -189,7 +196,7 @@ public class EventOverviewActivity extends AppCompatActivity {
                 JSONObject object = new JSONObject(string);
 
                 if (!object.getBoolean("error")) {
-                    Toast.makeText(getApplicationContext(), object.getString("message"), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), object.getString("message"), Toast.LENGTH_SHORT).show();
                     updateEventList(object.getJSONArray("data"));
                 }
             } catch (JSONException e) {

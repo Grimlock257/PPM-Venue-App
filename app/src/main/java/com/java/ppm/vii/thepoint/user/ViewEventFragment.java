@@ -123,7 +123,7 @@ public class ViewEventFragment extends Fragment {
      */
     private String getFormattedTime(String inputTime) throws ParseException {
         // The format retrieved from the database (stored in this format by database software)
-        DateFormat inputFormat = new SimpleDateFormat("yyyy-dd-MM HH:mm:ss");
+        DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date eventDate = inputFormat.parse(inputTime);
 
         // Format the input time into the specified format
@@ -143,7 +143,7 @@ public class ViewEventFragment extends Fragment {
      */
     private String getFormattedDate(String inputDate) throws ParseException {
         // The format retrieved from the database (stored in this format by database software)
-        DateFormat inputFormat = new SimpleDateFormat("yyyy-dd-MM HH:mm:ss");
+        DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date eventDate = inputFormat.parse(inputDate);
 
         // Format the input date into the specified format

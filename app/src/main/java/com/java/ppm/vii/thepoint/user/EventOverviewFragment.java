@@ -1,10 +1,12 @@
 package com.java.ppm.vii.thepoint.user;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -155,6 +157,27 @@ public class EventOverviewFragment extends Fragment {
     public void updateRecyclerView() {
         adapter = new EventAdapter(eventList);
         recyclerView.setAdapter(adapter);
+
+        adapter.setOnItemClickListener(new EventAdapter.OnItemClickListener() {
+            @Override
+            public void onEventCardClick(Event event) {
+                // Create an intent to open the ViewEventFragment, store the clicked event inside the intent
+                // Intent intentViewEvent = new Intent(getActivity(), ViewEventFragment.class);
+                // intentViewEvent.putExtra("event", event);
+                // startActivity(intentViewEvent);
+
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("event", event);
+
+                Fragment viewEventFragment = new ViewEventFragment();
+                viewEventFragment.setArguments(bundle);
+
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.fragment_container, viewEventFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
+            }
+        });
     }
 
     /**

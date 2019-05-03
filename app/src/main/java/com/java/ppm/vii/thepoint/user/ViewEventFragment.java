@@ -3,8 +3,12 @@ package com.java.ppm.vii.thepoint.user;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,20 +22,22 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class ViewEventActivity extends AppCompatActivity {
+public class ViewEventFragment extends Fragment {
     TextView eventPromoter, eventTitle, eventDate, eventTime, eventDescription, eventPrice, eventFBEvent;
     ImageView eventImage;
 
     private Event event;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_view_event);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_user_view_event, container, false);
+    }
 
-        event = (Event) getIntent().getSerializableExtra("event");
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        event = (Event) getArguments().getSerializable("event");
 
-        initLayoutViews();
+        initLayoutViews(view);
 
         displayEvent();
     }
@@ -39,15 +45,15 @@ public class ViewEventActivity extends AppCompatActivity {
     /**
      * Initialise the layout view elements and set listeners, if applicable
      */
-    private void initLayoutViews() {
-        eventImage = findViewById(R.id.eventImage);
-        eventPromoter = findViewById(R.id.eventPromoter);
-        eventTitle = findViewById(R.id.eventTitle);
-        eventDate = findViewById(R.id.eventDate);
-        eventTime = findViewById(R.id.eventTime);
-        eventDescription = findViewById(R.id.eventDescription);
-        eventPrice = findViewById(R.id.eventPrice);
-        eventFBEvent = findViewById(R.id.buttonFBEvent);
+    private void initLayoutViews(View view) {
+        eventImage = view.findViewById(R.id.eventImage);
+        eventPromoter = view.findViewById(R.id.eventPromoter);
+        eventTitle = view.findViewById(R.id.eventTitle);
+        eventDate = view.findViewById(R.id.eventDate);
+        eventTime = view.findViewById(R.id.eventTime);
+        eventDescription = view.findViewById(R.id.eventDescription);
+        eventPrice = view.findViewById(R.id.eventPrice);
+        eventFBEvent = view.findViewById(R.id.buttonFBEvent);
     }
 
     /**
@@ -91,7 +97,7 @@ public class ViewEventActivity extends AppCompatActivity {
                         Intent facebookIntent = new Intent(Intent.ACTION_VIEW, facebook);
 
                         // Check if there is an activity to handle this intent, if so, open it
-                        if (facebookIntent.resolveActivity(getPackageManager()) != null) {
+                        if (facebookIntent.resolveActivity(getActivity().getPackageManager()) != null) {
                             startActivity(facebookIntent);
                         }
                     }
@@ -101,7 +107,7 @@ public class ViewEventActivity extends AppCompatActivity {
             // eventFBEvent.setText(event.getFbEvent()); // TODO OnClickHandler URL
         } catch (NullPointerException e) {
             String error = "Oops! Something went wrong";
-            Toast.makeText(this, error, Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(), error, Toast.LENGTH_LONG).show();
             eventTitle.setText(error);
         }
     }

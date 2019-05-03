@@ -18,9 +18,7 @@
         tools:targetApi="m">
         <activity android:name=".admin.CreateEventActivity" />
         <activity android:name=".admin.EditEventActivity" />
-        <activity android:name=".user.EventOverviewFragment" />
         <activity android:name=".admin.AdminActivity" />
-        <activity android:name=".user.ViewEventActivity" />
         <activity android:name=".user.UserActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

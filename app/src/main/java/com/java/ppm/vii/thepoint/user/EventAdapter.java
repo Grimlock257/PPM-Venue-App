@@ -1,6 +1,5 @@
 package com.java.ppm.vii.thepoint.user;
 
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -24,6 +23,8 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
     private List<Event> eventList;
     private List<Event> filteredEventList;
 
+    private OnItemClickListener listener;
+
     /**
      * Creates a new EventAdapter to be used to feed the event information to the RecyclerView
      *
@@ -32,6 +33,28 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
     EventAdapter(List<Event> eventList) {
         this.eventList = eventList;
         this.filteredEventList = eventList;
+    }
+
+    /**
+     * Contains methods that must implemented for the EventAdapter class that is for the
+     * RecyclerView that contains all the events in the admin area
+     */
+    public interface OnItemClickListener {
+        /**
+         * Called when the event card was clicked
+         *
+         * @param event The Event that the card in the RecyclerView represented
+         */
+        void onEventCardClick(Event event);
+    }
+
+    /**
+     * Set the OnItemClickListener
+     *
+     * @param listener The new listener
+     */
+    void setOnItemClickListener(OnItemClickListener listener) {
+        this.listener = listener;
     }
 
     @Override
@@ -80,7 +103,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
          *
          * @param itemView The view for the card
          */
-        EventViewHolder(View itemView) {
+        EventViewHolder(View itemView, final OnItemClickListener listener) {
             super(itemView);
 
             // Create references to views within the card
@@ -92,13 +115,15 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
             eventCard.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    // Retrieve the clicked card
-                    Event event = filteredEventList.get(getAdapterPosition());
+                    if (listener != null) {
+                        // Retrieve the clicked card
+                        int position = getAdapterPosition();
 
-                    // Create an intent to open the ViewEventActivity, store the clicked event inside the intent
-                    Intent intentViewEvent = new Intent(view.getContext(), ViewEventActivity.class);
-                    intentViewEvent.putExtra("event", event);
-                    view.getContext().startActivity(intentViewEvent);
+                        // Make sure the position returned is a valid position
+                        if (position != RecyclerView.NO_POSITION) {
+                            listener.onEventCardClick(filteredEventList.get(getAdapterPosition()));
+                        }
+                    }
                 }
             });
         }
@@ -117,7 +142,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
     public EventViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.cardview_user_show_event, viewGroup, false);
 
-        return new EventViewHolder(view);
+        return new EventViewHolder(view, listener);
     }
 
     /**

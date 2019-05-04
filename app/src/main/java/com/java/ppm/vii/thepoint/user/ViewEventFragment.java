@@ -71,20 +71,17 @@ public class ViewEventFragment extends Fragment {
                 eventPromoter.setHeight(0);
 
             eventTitle.setText(event.getTitle());
+            eventDate.setText(getFormattedDate(event.getDate()));
+            eventTime.setText(getFormattedTime(event.getDate()));
 
-            try {
-                eventDate.setText(getFormattedDate(event.getDate()));
-            } catch (ParseException e) {
-                eventDate.setText("Uh oh! Date could not be retrieved!");
+            String eventPriceStr = Double.toString(event.getPrice());
+            if(eventPriceStr.toLowerCase().equals("0.0")) {
+                eventPrice.setText("FREE!");
+            } else {
+                System.out.println("############### DEBUG: " + String.format("%.2f", event.getPrice()));
+                eventPrice.setText("£" + String.format("%.2f", event.getPrice()));
             }
 
-            try {
-                eventTime.setText(getFormattedTime(event.getDate()));
-            } catch (ParseException e) {
-                eventTime.setText("Uh oh! Date could not be retrieved!");
-            }
-
-            eventPrice.setText(Double.toString(event.getPrice()));
             eventDescription.setText(event.getDescription());
 
             if (event.getFbEvent() == "") {
@@ -118,13 +115,17 @@ public class ViewEventFragment extends Fragment {
      * @param inputTime The input time retrieved from the database
      *
      * @return The formatted time in 12 hour format with AM / PM
-     *
-     * @throws ParseException If the format provided cannot be parsed
      */
-    private String getFormattedTime(String inputTime) throws ParseException {
+    private String getFormattedTime(String inputTime) {
         // The format retrieved from the database (stored in this format by database software)
         DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Date eventDate = inputFormat.parse(inputTime);
+        Date eventDate;
+
+        try {
+            eventDate = inputFormat.parse(inputTime);
+        } catch (ParseException e) {
+            return "Uh oh! Date could not be retrieved!";
+        }
 
         // Format the input time into the specified format
         DateFormat outputFormat = new SimpleDateFormat("h:mm a");
@@ -138,13 +139,17 @@ public class ViewEventFragment extends Fragment {
      * @param inputDate The input date retrieved from the database
      *
      * @return The formatted date in the format Monday 1st January
-     *
-     * @throws ParseException If the format provided cannot be parsed
      */
-    private String getFormattedDate(String inputDate) throws ParseException {
+    private String getFormattedDate(String inputDate) {
         // The format retrieved from the database (stored in this format by database software)
         DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Date eventDate = inputFormat.parse(inputDate);
+        Date eventDate;
+
+        try {
+            eventDate = inputFormat.parse(inputDate);
+        } catch (ParseException e) {
+            return "Uh oh! Date could not be retrieved!";
+        }
 
         // Format the input date into the specified format
         DateFormat outputFormat = new SimpleDateFormat("EEEE d'" + getDaySuffix(eventDate.getDate()) + "' MMMM");

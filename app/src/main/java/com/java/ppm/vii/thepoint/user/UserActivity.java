@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -61,7 +62,7 @@ public class UserActivity extends AppCompatActivity implements NavigationView.On
         // See what the MenuItem was selected and perform the appropriate action
         switch (menuItem.getItemId()) {
             case R.id.nav_user_events:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new EventOverviewFragment()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new EventOverviewFragment()).addToBackStack(null).commit();
                 break;
             case R.id.nav_user_gallery:
                 // TODO: Implement
@@ -72,8 +73,7 @@ public class UserActivity extends AppCompatActivity implements NavigationView.On
                 Toast.makeText(this, "You've selected About Us", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.nav_user_contact_us:
-                // TODO: Implement
-                Toast.makeText(this, "You've selected Contact Us", Toast.LENGTH_SHORT).show();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ContactFragment()).addToBackStack(null).commit();
                 break;
             case R.id.nav_user_instagram:
                 Toast.makeText(this, "Opening Instagram page...", Toast.LENGTH_SHORT).show();

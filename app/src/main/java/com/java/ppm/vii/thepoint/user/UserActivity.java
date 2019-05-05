@@ -69,8 +69,7 @@ public class UserActivity extends AppCompatActivity implements NavigationView.On
                 Toast.makeText(this, "You've selected Gallery", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.nav_user_about_us:
-                // TODO: Implement
-                Toast.makeText(this, "You've selected About Us", Toast.LENGTH_SHORT).show();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new AboutFragment()).addToBackStack(null).commit();
                 break;
             case R.id.nav_user_contact_us:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ContactFragment()).addToBackStack(null).commit();

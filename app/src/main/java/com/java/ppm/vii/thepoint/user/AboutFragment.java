@@ -1,5 +1,7 @@
 package com.java.ppm.vii.thepoint.user;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -103,6 +105,20 @@ public class AboutFragment extends Fragment {
     public void updateRecyclerView() {
         adapter = new AboutAdapter(aboutList);
         recyclerView.setAdapter(adapter);
+
+        adapter.setOnItemClickListener(new AboutAdapter.OnItemClickListener() {
+            @Override
+            public void onDirectionsButtonClicked() {
+                // Make sure the position returned is a valid position
+                Uri getDirections = Uri.parse("https://www.google.co.uk/maps/dir//52.9122315,-1.1837789/@52.9122315,-1.1837789,19z");
+                Intent directionsIntent = new Intent(Intent.ACTION_VIEW, getDirections);
+
+                // Check if there is an activity to handle this intent, if so, open it
+                if (directionsIntent.resolveActivity(getActivity().getPackageManager()) != null) {
+                    startActivity(directionsIntent);
+                }
+            }
+        });
     }
 
     /**

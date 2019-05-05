@@ -11,6 +11,6 @@
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorBlack">#000000</color>
     <color name="colorFacebook">#4267B2</color>
-    <color name="colorGoogleCalendarBtnBg">#EEEEEE</color>
-    <color name="colorGoogleCalendarBtn">#222222</color>
+    <color name="colorLightBtnBg">#EEEEEE</color>
+    <color name="colorLightBtnText">#222222</color>
 </resources>

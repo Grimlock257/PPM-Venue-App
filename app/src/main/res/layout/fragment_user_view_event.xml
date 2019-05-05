@@ -111,11 +111,11 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="12dp"
-                android:background="@color/colorGoogleCalendarBtnBg"
+                android:background="@color/colorLightBtnBg"
                 android:padding="10dp"
                 android:text="@string/event_google_calendar_link"
                 android:textAllCaps="false"
-                android:textColor="@color/colorGoogleCalendarBtn" />
+                android:textColor="@color/colorLightBtnText" />
 
         </LinearLayout>
 

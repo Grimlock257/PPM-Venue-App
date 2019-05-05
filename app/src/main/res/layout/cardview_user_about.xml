@@ -8,7 +8,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_margin="4dp">
 
         <TextView
@@ -37,6 +37,26 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/aboutInfo" />
+
+        <WebView
+            android:id="@+id/aboutMap"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/aboutImage" />
+
+        <Button
+            android:id="@+id/buttonAboutMapDirection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/aboutMap"
+            android:layout_gravity="center"
+            android:layout_marginTop="12dp"
+            android:background="@color/colorLightBtnBg"
+            android:padding="10dp"
+            android:text="@string/get_directions_link"
+            android:textAllCaps="false"
+            android:textColor="@color/colorLightBtnText"
+            android:visibility="gone" />
 
     </RelativeLayout>
 

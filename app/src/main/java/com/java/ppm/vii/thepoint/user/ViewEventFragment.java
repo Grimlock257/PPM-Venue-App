@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.java.ppm.vii.thepoint.R;
+import com.java.ppm.vii.thepoint.database.API;
 import com.java.ppm.vii.thepoint.database.entity.Event;
 
 import java.text.DateFormat;
@@ -61,7 +62,7 @@ public class ViewEventFragment extends Fragment {
      */
     private void displayEvent() {
         try {
-            Uri ImgURI = Uri.parse(event.getMainImage());
+            Uri ImgURI = Uri.parse(API.getEventImageURL() + event.getMainImage());
             Glide.with(this).load(ImgURI).into(eventImage);
 
             // If there is a promoter, set the promoter otherwise, set the height of the promoter TextView element to 0 to hide it

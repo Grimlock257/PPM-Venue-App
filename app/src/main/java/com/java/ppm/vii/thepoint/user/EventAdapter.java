@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.java.ppm.vii.thepoint.R;
+import com.java.ppm.vii.thepoint.database.API;
 import com.java.ppm.vii.thepoint.database.entity.Event;
 
 import java.util.ArrayList;
@@ -157,7 +158,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
         Event currentEvent = filteredEventList.get(i);
 
         eventViewHolder.VenueViewText.setText(currentEvent.getTitle());
-        Glide.with(eventViewHolder.itemView.getContext()).load(currentEvent.getMainImage()).into(eventViewHolder.eventImage); //Must load pos into FIlterable ArryList to Allow Glide to implement teh images correctly!
+        Glide.with(eventViewHolder.itemView.getContext()).load(API.getEventImageURL() + currentEvent.getMainImage()).into(eventViewHolder.eventImage); //Must load pos into FIlterable ArryList to Allow Glide to implement teh images correctly!
     }
 
     /**

@@ -18,13 +18,15 @@ import com.java.ppm.vii.thepoint.R;
 import com.java.ppm.vii.thepoint.database.API;
 import com.java.ppm.vii.thepoint.database.entity.Event;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class ViewEventFragment extends Fragment {
-    TextView eventPromoter, eventTitle, eventDate, eventTime, eventDescription, eventPrice, eventFBEvent;
+    TextView eventPromoter, eventTitle, eventDate, eventTime, eventDescription, eventPrice, eventFBEvent, eventGoogleCalURL;
     ImageView eventImage;
 
     private Event event;
@@ -55,6 +57,7 @@ public class ViewEventFragment extends Fragment {
         eventDescription = view.findViewById(R.id.eventDescription);
         eventPrice = view.findViewById(R.id.eventPrice);
         eventFBEvent = view.findViewById(R.id.buttonFBEvent);
+        eventGoogleCalURL = view.findViewById(R.id.buttonGoogleCal);
     }
 
     /**
@@ -76,7 +79,7 @@ public class ViewEventFragment extends Fragment {
             eventTime.setText(getFormattedTime(event.getDate()));
 
             String eventPriceStr = Double.toString(event.getPrice());
-            if(eventPriceStr.toLowerCase().equals("0.0")) {
+            if (eventPriceStr.toLowerCase().equals("0.0")) {
                 eventPrice.setText("FREE!");
             } else {
                 System.out.println("############### DEBUG: " + String.format("%.2f", event.getPrice()));
@@ -102,7 +105,18 @@ public class ViewEventFragment extends Fragment {
                 });
             }
 
-            // eventFBEvent.setText(event.getFbEvent()); // TODO OnClickHandler URL
+            eventGoogleCalURL.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Uri googleCalendar = Uri.parse(generateGoogleCalendarURL(event.getTitle(), event.getDate(), event.getDescription()));
+                    Intent googleCalendarIntent = new Intent(Intent.ACTION_VIEW, googleCalendar);
+
+                    // Check if there is an activity to handle this intent, if so, open it
+                    if (googleCalendarIntent.resolveActivity(getActivity().getPackageManager()) != null) {
+                        startActivity(googleCalendarIntent);
+                    }
+                }
+            });
         } catch (NullPointerException e) {
             String error = "Oops! Something went wrong";
             Toast.makeText(getActivity(), error, Toast.LENGTH_LONG).show();
@@ -130,6 +144,30 @@ public class ViewEventFragment extends Fragment {
 
         // Format the input time into the specified format
         DateFormat outputFormat = new SimpleDateFormat("h:mm a");
+
+        return outputFormat.format(eventDate);
+    }
+
+    /**
+     * Format a given time (retrieved from the database) into suitable format for Google Calendar
+     *
+     * @param inputTime The input time retrieved from the database
+     *
+     * @return The formatted time for Google Calendar
+     */
+    private String getFormattedCalendarTime(String inputTime) {
+        // The format retrieved from the database (stored in this format by database software)
+        DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date eventDate;
+
+        try {
+            eventDate = inputFormat.parse(inputTime);
+        } catch (ParseException e) {
+            return "Uh oh! Date could not be retrieved!";
+        }
+
+        // Format the input time into the specified format
+        DateFormat outputFormat = new SimpleDateFormat("YYYYMMd'T'HHmmss/YYYYMMd'T'HHmmss");
 
         return outputFormat.format(eventDate);
     }
@@ -181,6 +219,34 @@ public class ViewEventFragment extends Fragment {
                 return "rd";
             default:
                 return "th";
+        }
+    }
+
+    /**
+     * Generate a suitable URL to create a new Google Calendar event
+     *
+     * @param title       The title of the event
+     * @param date        The date of the event
+     * @param description The description for the event
+     *
+     * @return The fomatted URL
+     *
+     * @throws UnsupportedEncodingException If the encoding format is not supported on the device
+     */
+    private String generateGoogleCalendarURL(String title, String date, String description) {
+        try {
+            String encodedTitle = URLEncoder.encode(title, "UTF-8");
+            String encodedLocation = URLEncoder.encode("NTSU - The Point, Clifton, Nottingham NG11 8NS", "UTF-8");
+            String encodedDescription = URLEncoder.encode(description, "UTF-8");
+
+            return "http://www.google.com/calendar/render?action=TEMPLATE" +
+                    "&text=" + encodedTitle +
+                    "&dates=" + getFormattedCalendarTime(date) +
+                    "&location=" + encodedLocation +
+                    "&trp=false&details=" + encodedDescription;
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+            return "";
         }
     }
 }

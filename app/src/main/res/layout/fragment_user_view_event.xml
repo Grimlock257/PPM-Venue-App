@@ -95,7 +95,7 @@
 
             <Button
                 android:id="@+id/buttonFBEvent"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="12dp"
@@ -104,6 +104,18 @@
                 android:text="@string/event_facebook_link"
                 android:textAllCaps="false"
                 android:textColor="@color/colorWhite" />
+
+            <Button
+                android:id="@+id/buttonGoogleCal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="12dp"
+                android:background="@color/colorGoogleCalendarBtnBg"
+                android:padding="10dp"
+                android:text="@string/event_google_calendar_link"
+                android:textAllCaps="false"
+                android:textColor="@color/colorGoogleCalendarBtn" />
 
         </LinearLayout>
 

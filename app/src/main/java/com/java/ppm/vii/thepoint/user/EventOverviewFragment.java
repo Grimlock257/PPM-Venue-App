@@ -61,7 +61,7 @@ public class EventOverviewFragment extends Fragment {
         initLayoutViews(view);
 
         // TODO: Issue #1 on GitHub. Causes NPE when no data or device rotated
-        // initSearch();
+        initSearch();
 
         fetchEvents();
     }
@@ -91,7 +91,10 @@ public class EventOverviewFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                adapter.getFilter().filter(s);
+                try {
+                    adapter.getFilter().filter(s);
+                } catch (NullPointerException e) {
+                }
             }
 
             @Override
@@ -214,7 +217,6 @@ public class EventOverviewFragment extends Fragment {
 
             // Try create a new JSONObject from the received result string from the database
             try {
-                System.out.println("[DEBUG] JSONObject string: =============" + string + "============");
                 JSONObject object = new JSONObject(string);
 
                 if (!object.getBoolean("error")) {

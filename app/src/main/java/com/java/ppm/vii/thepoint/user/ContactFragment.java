@@ -143,7 +143,6 @@ public class ContactFragment extends Fragment {
 
             // Try create a new JSONObject from the received result string from the database
             try {
-                System.out.println("[DEBUG] JSONObject string: =============" + string + "============");
                 JSONObject object = new JSONObject(string);
 
                 if (!object.getBoolean("error")) {

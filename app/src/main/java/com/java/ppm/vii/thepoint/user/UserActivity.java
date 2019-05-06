@@ -64,10 +64,6 @@ public class UserActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_user_events:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new EventOverviewFragment()).addToBackStack(null).commit();
                 break;
-            case R.id.nav_user_gallery:
-                // TODO: Implement
-                Toast.makeText(this, "You've selected Gallery", Toast.LENGTH_SHORT).show();
-                break;
             case R.id.nav_user_about_us:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new AboutFragment()).addToBackStack(null).commit();
                 break;

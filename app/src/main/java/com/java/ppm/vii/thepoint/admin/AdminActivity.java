@@ -62,9 +62,6 @@ public class AdminActivity extends AppCompatActivity implements NavigationView.O
             case R.id.nav_admin_events:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new com.java.ppm.vii.thepoint.admin.EventOverviewFragment()).commit();
                 break;
-            case R.id.nav_admin_x:
-                Toast.makeText(this, "You've selected create event", Toast.LENGTH_SHORT).show();
-                break;
             case R.id.nav_admin_user_area:
                 // Open the user view event page
                 Intent intentUserArea = new Intent(getApplicationContext(), UserActivity.class);

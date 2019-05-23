@@ -7,9 +7,11 @@ public enum API {
     INSERT("insert"),
     SELECT("select"),
     UPDATE("update"),
-    DELETE("delete&id=");
+    DELETE("delete&id="),
+    ABOUT("select-about"),
+    CONTACT("contact");
     
-    private static final String ROOT_URL = "PATH-TO-PHP-API-FILE";
+    private static final String ROOT_URL = "PATH-TO-WEB-ROOT";
     private String urlOperation;
 
     /**
@@ -27,6 +29,20 @@ public enum API {
      * @return The full URL for the API call
      */
     public String getURL() {
-        return ROOT_URL + this.urlOperation;
+        return ROOT_URL + "api/api.php?op=" + this.urlOperation;
+    }
+    
+    /**
+     * Last minute addition
+     */
+    public static String getEventImageURL() {
+        return ROOT_URL + "assets/img/events/";
+    }
+
+    /**
+     * Last minute addition
+     */
+    public static String getAboutUsImageURL() {
+        return ROOT_URL + "assets/img/";
     }
 }
